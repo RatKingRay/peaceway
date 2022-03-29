@@ -54,7 +54,14 @@ body {
     background-color: rgba(177, 226, 255, 0.616);
 }
 
-form {
+/* Notes */
+.flex-notes {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.note {
     border: 1px solid rgb(90, 90, 90);
     border-radius: 5px;
     box-shadow: 5px 10px #8b8b8b;
@@ -67,7 +74,6 @@ form {
     height: max-content;
     padding: 25px;
     margin: 10px;
-    margin-right: 50px;
 }
 
 input {
@@ -121,4 +127,10 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
+}
+
+
+
+.current-emotion {
+    display: block;
 }

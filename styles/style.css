@@ -60,6 +60,7 @@ body {
 .flex-notes {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 form {
@@ -74,7 +75,7 @@ form {
     width: max-content;
     height: max-content;
     padding: 25px;
-    margin: 125px auto;
+    margin: 75px 75px auto;
 }
 
 label {

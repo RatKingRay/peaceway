@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
+
     <header class="flex-head">
         <h2>Peaceway</h2>
         <nav>
@@ -16,27 +17,32 @@
                 <li><a href="register.html">Register</a></li>
                 <li><a href="notes.html">Notes</a></li>
                 <li><a href="goals.html">Goals</a></li>
+                <li><a href="exercises.html">Exercises</a></li>
             </ul>
         </nav>
     </header>
+
     <main>
-        <form>
-            <label for="fname">First Name:</label>
-            <input type="text" id="fname" name="fname" placeholder="Enter first name"><br>
-            <label for="lname">Last Name:</label>
-            <input type="text" id="lname" name="lname" placeholder="Enter last name"><br>
-            <label for="uname">Username or Email:</label>
-            <input type="text" id="uname" name="uname" placeholder="Enter username or email"><br>
-            <label for="bdate">Birthdate:</label>
-            <input type="date" id="bdate" name="bdate"><br>
-            <label for="pword">Password:</label>
-            <input type="password" id="pword" name="pword" placeholder="Enter password"><br>
+        <form id="registerForm">
+            <label for="fName">First Name:</label>
+            <input type="text" id="fName" name="fName" placeholder="Enter first name"><br>
+            <label for="lName">Last Name:</label>
+            <input type="text" id="lName" name="lName" placeholder="Enter last name"><br>
+            <label for="username">Username or Email:</label>
+            <input type="text" id="username" name="username" placeholder="Enter username or email"><br>
+            <label for="bDate">Birthdate:</label>
+            <input type="date" id="bDate" name="bDate"><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter password"><br>
             <!--Submit button-->
             <input type="submit" value="Submit"><br>
         </form>
     </main>
+
     <footer>
         Raymond Lee<br> All rights reserved 2022 &reg;
     </footer>
+
+    <script src="main.js"></script>
 </body>
 </html>
