@@ -1,24 +1,23 @@
-let noteForm = document.getElementById("noteForm")
-let flexNotes = document.getElementsByClassName("flex-notes")
 
+let noteForm = document.getElementById("noteForm")
 noteForm.addEventListener('submit', addNote)
 
 function addNote(e) {
     e.preventDefault()
     alert("hello!")
+
+    let flexNotes = document.getElementById("flex-notes")
     let note = document.getElementById("note").value
 
-    const newNote = new Note(note)
-    console.log(newNote)
-    //5. Create new li to add note text to
-    let p = document.createElement('p')
+    //const newNote = new Note(note)
+    //console.log(newNote)
 
-    p.appendChild(note)
-    //6. Add any styling/classes 
+    let p = document.createElement('p')
+    p.appendChild(document.createTextNode(note))
     p.className = "note"
-    //8. Append finished li to notes list
+
     flexNotes.appendChild(p)
-    //9. Get rid of text after submitting
+
     document.getElementById("note").value = ""
 }
 
@@ -30,7 +29,7 @@ function createUser(e) {
     e.preventDefault()
     let id = x++
     let fName = document.getElementById("fName")
-    let fLame = document.getElementById("lName")
+    let lName = document.getElementById("lName")
     let username = document.getElementById("username")
     let email = document.getElementById("username")
     let bDay = document.getElementById("bDay")

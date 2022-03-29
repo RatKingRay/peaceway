@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles/notestyle.css">
 </head>
 <body>
+
     <header class="flex-head">
         <h2>Peaceway</h2>
         <nav>
@@ -20,9 +21,11 @@
             </ul>
         </nav>
     </header>
+
     <main>
         <div class="flex-notes">
-            <div class="current-emotion">
+
+            <div class="note" id="currentEmotion">
                 <p>What are you feeling?</p>
                 <select name="current-emotion" id="current-emotion">
                     <option value="sad">Sad</option>
@@ -32,7 +35,8 @@
                     <option value="anxious">Anxious</option>
                 </select><br>
             </div>
-            <form>
+
+            <form class="note">
                 <p>Create an Exercise</p> 
                 <label for="instruction">Add instructions:</label><br>
                 <input type="text" id="instruction" name="instruction" placeholder="Enter an instruction"><br>
@@ -47,11 +51,14 @@
                 <!--Submit button-->
                 <input type="submit" value="Create"><br>
             </form>
+
         </div>
     </main>
+
     <footer>
         Raymond Lee<br> All rights reserved 2022 &reg;
     </footer>
+
     <script src="main.js"></script>
 </body>
 </html>
