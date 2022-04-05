@@ -16,7 +16,7 @@
                 <li><a href="login.html">Login</a></li>
                 <li><a href="register.html">Register</a></li>
                 <li><a href="notes.html">Notes</a></li>
-                <li><a href="goals.html">Goals</a></li>
+                <li><a href="budget.html">Budget</a></li>
                 <li><a href="exercises.html">Exercises</a></li>
             </ul>
         </nav>
@@ -27,8 +27,17 @@
             <form class="note" id="noteForm">
                 <label for="note">Create New Note:</label>
                 <input type="text" id="note" name="note" placeholder="Enter note here..."><br>
+
+                <label for="emotion">How does this feel?</label><br>
+                <select name="emotion" id="emotion">
+                    <option value="sad">Sad</option>
+                    <option value="happy">Happy</option>
+                    <option value="angry">Angry</option>
+                    <option value="bored">Bored</option>
+                    <option value="anxious">Anxious</option>
+                </select><br>
                 <!--Submit button-->
-                <input type="submit" value="Create"><br>
+                <input type="submit" class="button" value="Create"><br>
             </form>
         </div>
     </main>

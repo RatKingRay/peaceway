@@ -1,10 +1,8 @@
-
 let noteForm = document.getElementById("noteForm")
 noteForm.addEventListener('submit', addNote)
 
 function addNote(e) {
     e.preventDefault()
-    alert("hello!")
 
     let flexNotes = document.getElementById("flex-notes")
     let note = document.getElementById("note").value
@@ -14,12 +12,28 @@ function addNote(e) {
 
     let p = document.createElement('p')
     p.appendChild(document.createTextNode(note))
+    p.appendChild(document.createElement('br'))
     p.className = "note"
-
     flexNotes.appendChild(p)
+
+    let button = document.createElement('button')
+    button.appendChild(document.createTextNode("Delete"))
+    button.id = "delete"
+    button.className = "button"
+    p.appendChild(button)
+
 
     document.getElementById("note").value = ""
 }
+
+let button = document.getElementById("delete")
+button.addEventListener('submit', deleteNote)
+
+function deleteNote(e) {
+    e.preventDefault()
+
+}
+
 
 let x = 0
 let registerForm = document.getElementById("registerForm")
@@ -27,6 +41,7 @@ registerForm.addEventListener('submit', createUser)
 
 function createUser(e) {
     e.preventDefault()
+
     let id = x++
     let fName = document.getElementById("fName")
     let lName = document.getElementById("lName")
@@ -34,6 +49,7 @@ function createUser(e) {
     let email = document.getElementById("username")
     let bDay = document.getElementById("bDay")
     let password = document.getElementById("password")
+
     const newUser = new User(id, fName, lName, username, email, bDay, password);
     console.log(newUser)
 }
