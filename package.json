@@ -1,0 +1,26 @@
+{
+  "name": "web-dev-project",
+  "version": "1.0.0",
+  "description": "my project",
+  "main": "main.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RatKingRay/web-dev-project.git"
+  },
+  "author": "Raymond Lee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RatKingRay/web-dev-project/issues"
+  },
+  "homepage": "https://github.com/RatKingRay/web-dev-project#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
