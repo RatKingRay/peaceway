@@ -23,14 +23,18 @@
     </header>
 
     <main>
-        <div class="flex-notes">
-            <form class="note">
-                <label for="weekly_budget">Enter Weekly Limit:</label><br>
-                <input type="text" id="weekly_budget" name="weekly_budget" placeholder="Enter Limit"><br>
-                <!--Submit button-->
-                <input type="submit" class="button" value="Create"><br>
-            </form>
-        </div>
+        <form class="note budget-block">
+            <p class="budget-display">Current: $0.00</p>
+            <!-- Go into Red text when over limit -->
+            <label for="weekly_budget">Enter Weekly Limit:</label><br>
+            <input type="text" id="weekly_budget" name="weekly_budget" placeholder="Enter Limit"><br>
+            <input type="submit" class="button" value="Submit"><br><br>
+            <!-- Deduct this from current -->
+            <label for="add">Add Amount of $ Spent:</label><br>
+            <input type="text" id="add" name="add" placeholder="Enter $ Amount"><br>
+            <input type="submit" class="button" value="Deduct"><br>
+            
+        </form>
     </main>
 
     <footer>

@@ -1,3 +1,89 @@
+
+let x = 0
+let registerForm = document.getElementById("registerForm")
+registerForm.addEventListener('submit', createUser)
+
+function createUser(e) {
+    e.preventDefault()
+
+    let id = x++
+    let fName = document.getElementById("fName").value
+    let lName = document.getElementById("lName").value
+    let email = document.getElementById("email").value
+    let bDay = document.getElementById("bDate").value
+    let password = document.getElementById("password").value
+
+    const newUser = new User(id, fName, lName, email, bDay, password);
+    console.log(newUser)
+}
+
+class User {
+    constructor(id, fName, lName, email, bDay, password) {
+        this.userId = id
+        this.fName = fName
+        this.lName = lName
+        this.email = email
+        this.bDay = bDay
+        this.password = password
+    }
+    getUserId() {
+        return this.userId
+    }
+    getFName() {
+        return this.fName
+    }
+    getLName() {
+        return this.lName
+    }
+    getEmail() {
+        return this.email
+    }
+    getBDay() {
+        return this.bDay
+    }
+    getPassword() {
+        return this.password
+    }
+
+    setUserId(id) {
+        this.userId = id
+    }
+    setFName(name) {
+        this.fName = name
+    }
+    setLName(name) {
+        this.LName = name
+    }
+    setEmail(email) {
+        this.email = email
+    }
+    setBDay(day) {
+        this.bDay = day
+    }
+    setPassword(password) {
+        this.password = password
+    }
+}
+
+let loginForm = document.getElementById("loginForm")
+loginForm.addEventListener('submit', checkLogin)
+
+function checkLogin(e) {
+    e.preventDefault()
+
+    let email = document.getElementById("email").value
+    let password = document.getElementById("password").value
+
+    console.log(email)
+    console.log(password)
+}
+
+
+/*
+    I tested this section of code below and it works, but only if the top half trying
+    to find a 'register' page isn't present. Solution is probably to have two seperate
+    JS files?
+*/
 let noteForm = document.getElementById("noteForm")
 noteForm.addEventListener('submit', addNote)
 
@@ -33,79 +119,3 @@ function deleteNote(e) {
     e.preventDefault()
 
 }
-
-
-let x = 0
-let registerForm = document.getElementById("registerForm")
-registerForm.addEventListener('submit', createUser)
-
-function createUser(e) {
-    e.preventDefault()
-
-    let id = x++
-    let fName = document.getElementById("fName")
-    let lName = document.getElementById("lName")
-    let username = document.getElementById("username")
-    let email = document.getElementById("username")
-    let bDay = document.getElementById("bDay")
-    let password = document.getElementById("password")
-
-    const newUser = new User(id, fName, lName, username, email, bDay, password);
-    console.log(newUser)
-}
-
-class User {
-    constructor(id, fName, lName, username, email, bDay, password) {
-        this.userId = id
-        this.fName = fName
-        this.lName = lName
-        this.username = username
-        this.email = email
-        this.bDay = bDay
-        this.password = password
-    }
-    getUserId() {
-        return this.userId
-    }
-    getFName() {
-        return this.fName
-    }
-    getLName() {
-        return this.lName
-    }
-    getUsername() {
-        return this.username
-    }
-    getEmail() {
-        return this.email
-    }
-    getBDay() {
-        return this.bDay
-    }
-    getPassword() {
-        return this.password
-    }
-
-    setUserId(id) {
-        this.userId = id
-    }
-    setFName(name) {
-        this.fName = name
-    }
-    setLName(name) {
-        this.LName = name
-    }
-    setUsername(name) {
-        this.username = name
-    }
-    setEmail(email) {
-        this.email = email
-    }
-    setBDay(day) {
-        this.bDay = day
-    }
-    setPassword(password) {
-        this.password = password
-    }
-}
-
