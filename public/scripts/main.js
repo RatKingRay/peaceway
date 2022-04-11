@@ -1,21 +1,26 @@
 
-let x = 0
-let registerForm = document.getElementById("registerForm")
-registerForm.addEventListener('submit', createUser)
+// const registerForm = document.getElementById("registerForm")
+// if(registerForm) registerForm.addEventListener('submit', register)
 
-function createUser(e) {
-    e.preventDefault()
+// function register(e) {
+//     e.preventDefault()
 
-    let id = x++
-    let fName = document.getElementById("fName").value
-    let lName = document.getElementById("lName").value
-    let email = document.getElementById("email").value
-    let bDay = document.getElementById("bDate").value
-    let password = document.getElementById("password").value
+//     const email = document.getElementById("email").value
+//     const password = document.getElementById("password").value
 
-    const newUser = new User(id, fName, lName, email, bDay, password);
-    console.log(newUser)
-}
+//     postData('http://localhost:3000/users/login', {email: email, password: password})
+
+//     let id = x++
+//     let fName = document.getElementById("fName").value
+//     let lName = document.getElementById("lName").value
+//     let email = document.getElementById("email").value
+//     let bDay = document.getElementById("bDate").value
+//     let password = document.getElementById("password").value
+
+//     const newUser = new User(id, fName, lName, email, bDay, password);
+//     console.log(newUser)
+// }
+
 
 class User {
     constructor(id, fName, lName, email, bDay, password) {
@@ -65,18 +70,7 @@ class User {
     }
 }
 
-let loginForm = document.getElementById("loginForm")
-loginForm.addEventListener('submit', checkLogin)
 
-function checkLogin(e) {
-    e.preventDefault()
-
-    let email = document.getElementById("email").value
-    let password = document.getElementById("password").value
-
-    console.log(email)
-    console.log(password)
-}
 
 
 /*

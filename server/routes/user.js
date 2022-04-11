@@ -12,4 +12,24 @@ router.get('/', (req, res) => {
     }
 })
 
-modules.exports = router
+router.get('/login', async (req, res) => {
+    try {
+        const user = await User.login(req.body.email, req.body.password)
+        res.send( {...user, password: undefined} )
+    }
+    catch(error) {
+        res.status(401).send( {message: error.message} )
+    }
+})
+
+router.post('/register', async (req, res) => {
+    try {
+        const user = await User.register(req.body)
+        res.send({...user, password: undefined})
+    }
+    catch (err) {
+        res.status(401).send({message:error.message})
+    }
+})
+
+module.exports = router
