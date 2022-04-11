@@ -33,4 +33,4 @@ function login(email, password) {
     return user[0]
 }
 
-module.exports = { getUsers, login, register, deleteUser }
+module.exports = { getUsers, login, register }

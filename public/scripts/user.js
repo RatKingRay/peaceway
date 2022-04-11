@@ -68,7 +68,7 @@ function register(e) {
     })
     .catch((error) => {
         const errText = error.message
-        document.querySelector("#reg-form p.error").innerHTML = errText
+        document.querySelector("#registerForm p.error").innerHTML = errText
         document.getElementById("password").value = ""
         console.log(`Error! ${errText}`)
     })
