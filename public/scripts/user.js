@@ -14,9 +14,10 @@ async function postData(url = '', data = {}) {
       body: JSON.stringify(data) // body data type must match "Content-Type" header
     });
     if(response.ok) {
-      return await response.json(); // parses JSON response into native JavaScript objects
+        //Problem is response isn't ok, https://developer.mozilla.org/en-US/docs/Web/API/Response/ok
+        return await response.json() // parses JSON response into native JavaScript objects
     } else {
-      throw await response.json();
+      throw await response.json()
     }
 }
 
@@ -34,7 +35,7 @@ function login(e) {
 
     const email = document.getElementById("email").value
     const password = document.getElementById("password").value
-    postData('http://localhost:3000/users/login', {email: email, password: password})
+    postData('http://localhost:5500/users/login', {email: email, password: password})
     .then((data) => {
         if(!data.message) {
             window.location.href = "notes.html"
@@ -56,20 +57,20 @@ if(registerForm) registerForm.addEventListener('submit', register)
 function register(e) {
     e.preventDefault()
 
-    const email = document.getElementById("email").value
-    const password = document.getElementById("password").value
+    const emailTemp = document.getElementById("email").value
+    const passwordTemp = document.getElementById("password").value
 
-    postData('http://localhost:3000/users/login', {email: email, password: password})
+    postData('http://localhost:5500/users/register', {email: emailTemp, password: passwordTemp})
     .then((data) => {
         if(!data.message) {
             setCurrentUser(data)
-            window.location.href = "bmi.html"
+            window.location.href = "notes.html"
         }
     })
     .catch((error) => {
         const errText = error.message
-        document.querySelector("#registerForm p.error").innerHTML = errText
-        document.getElementById("password").value = ""
+        //document.querySelector("#registerForm p.error").innerHTML = errText
+        document.getElementById("email").value = ""
         console.log(`Error! ${errText}`)
     })
 }
