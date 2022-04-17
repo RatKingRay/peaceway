@@ -1,4 +1,48 @@
 
+
+
+
+
+
+
+
+/*
+export function logout
+
+export function login
+
+export function getCurrentUser{
+
+}
+//Check user exists in inner storage
+
+const nav = document.querySelector('nav')
+if(getCurrentUser()) {
+    nav.innerHTML = `
+    <ul>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="notes.html">Notes</a></li>
+        <li><a href="budget.html">Budget</a></li>
+        <li><a href="exercises.html">Exercises</a></li>
+        <button>Logout</button>
+    </ul>
+    `
+}
+
+} else {
+    nav.innerHTML = `
+    <ul>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="register.html">Register</a></li>
+    </ul>
+    `
+}
+
+*/
+
+
+
+
 // // const registerForm = document.getElementById("registerForm")
 // // if(registerForm) registerForm.addEventListener('submit', register)
 

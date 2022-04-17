@@ -2,6 +2,8 @@ const express = require('express')
 const app = express()
 
 const userRoutes = require('./server/routes/user')
+app.use(express.json())
+
 
 //CORS middleware
 app.use(function(req, res, next) {
@@ -16,7 +18,6 @@ app.get('*', function(req, res) {
 
 app.use('/users', userRoutes)
 
-app.use(express.json())
 
 const PORT = process.env.PORT || 5500
 app.listen(PORT, () => console.log(`Server stated on port ${PORT}!`))
