@@ -23,9 +23,8 @@ async function fetchData(url = '', data = {}, methodType) {
       redirect: 'follow', // manual, *follow, error
       referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       body: JSON.stringify(data), // body data type must match "Content-Type" header
-    });
+    })
     if(response.ok) {
-        //Problem is response isn't ok, https://developer.mozilla.org/en-US/docs/Web/API/Response/ok
         return await response.json() // parses JSON response into native JavaScript objects
     } else {
         throw await response.json()
@@ -38,6 +37,25 @@ function setCurrentUser(user) {
 
 function editAccount(e) {
     e.preventDefault()
+
+    let email = document.getElementById("email").value
+    if(email === user.email) {
+        let err = "No changes made"
+        //document.querySelector(#editForm p.error).innHTML = err
+    } else {
+        fetchData('/users/edit'), {userId: user.userId, email: email, }
+        .then((data) => {
+            if(!data.message) {
+                removeCurrentUser()
+                setCurrentUser(data)
+                window.location.href ="profile.html"
+            }
+        })
+        .catch((error) => {
+            const errText = error.message
+            console.log(`Error! ${errText}`)
+        })
+    }
 }
 
 
@@ -102,7 +120,4 @@ function register(e) {
 //             }
 //         })
 //     }
-// }
-
-
-module.exports = fetchData
+// }    

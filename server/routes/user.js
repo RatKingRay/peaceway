@@ -1,4 +1,5 @@
 const express = require('express')
+const { restart } = require('nodemon')
 const User = require('../models/user')
 const router = express.Router()
 
@@ -44,4 +45,13 @@ router
         }
     })
 
+    .put('/edit', (req, res) => {
+        try {
+            //const user  User.editUser(user)
+            res.send({...user, password: undefined})
+        } catch(error) {
+            res.status(401).send({ message: error.message })
+        }
+    })
+    
 module.exports = router
