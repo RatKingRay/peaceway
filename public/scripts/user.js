@@ -11,7 +11,7 @@ profile.innerHTML = `
 
 async function fetchData(url = '', data = {}, methodType) {
     console.log(data)
-    const response = await fetch(`http://localhost:5500${url}`, {
+    const response = await fetch(`http://localhost:3000${url}`, {
       method: methodType, // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -91,18 +91,18 @@ function register(e) {
 
 //make useful functions come from main
 //if there's no message then it wasn't an error
-function deleteUser() {
-    if(confirm('Are you sure you\'d like to delete account?')) {
-        fetchData('user/delete', { userId: user.userId }, "DELETE")
-        .then((data) => {
-            if(!data.message) {
-                console.log(data.success)
-                logout()
-                window.location.href = "register.html"
-            }
-        })
-    }
-}
+// function deleteUser() {
+//     if(confirm('Are you sure you\'d like to delete account?')) {
+//         fetchData('user/delete', { userId: user.userId }, "DELETE")
+//         .then((data) => {
+//             if(!data.message) {
+//                 console.log(data.success)
+//                 logout()
+//                 window.location.href = "register.html"
+//             }
+//         })
+//     }
+// }
 
 
-module.exports = { fetchData }
+module.exports = fetchData

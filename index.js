@@ -19,5 +19,5 @@ app.get('*', function(req, res) {
 app.use('/users', userRoutes)
 
 
-const PORT = process.env.PORT || 5500
+const PORT = process.env.PORT || 3000
 app.listen(PORT, () => console.log(`Server stated on port ${PORT}!`))

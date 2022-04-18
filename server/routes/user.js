@@ -15,7 +15,7 @@ router
 
     .get('/login', (req, res) => {
         try {
-            const user = await User.login(req.body.email, req.body.password)
+            const user = User.login(req.body.email, req.body.password)
             res.send({ ...user, password: undefined })
         }
         catch (error) {
@@ -44,4 +44,4 @@ router
         }
     })
 
-module.exports = { router }
+module.exports = router
