@@ -32,7 +32,8 @@ function register(user) {
 
   const newUser = {
     userId: users[users.length-1].userId + 1,
-    email: user.emailTemp,
+    //fName: user.fName,
+    email: user.email,
     password: user.password
   }
   users.push(newUser);
