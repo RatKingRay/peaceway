@@ -36,8 +36,8 @@ function register(user) {
     email: user.email,
     password: user.password
   }
-  users.push(newUser);
-  return newUser;
+  users.push(newUser)   //to put onto stack of user objects
+  return newUser
 }
 
 function deleteUser(userId) {
