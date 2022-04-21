@@ -1,16 +1,19 @@
 const users = [
   {
     userId: 12345,
+    fName: "Raymond",
     email: "raymond",
     password: "123"
   },
   {
     userId: 55555,
+    fName: "Sal",
     email: "fredburger54",
     password: "password"
   },
   {
     userId: 34212,
+    fName: "Nick",
     email: "coolcathy34",
     password: "badpassword"
   }
@@ -32,7 +35,7 @@ function register(user) {
 
   const newUser = {
     userId: users[users.length-1].userId + 1,
-    //fName: user.fName,
+    fName: user.fName,
     email: user.email,
     password: user.password
   }

@@ -3,37 +3,39 @@ import
 from './main.js'
 
 
-let user = getCurrentUser();
+let user = getCurrentUser()
 
-if(!user) window.location.href = "login.html";
+if(!user) window.location.href = "login.html"
 
 let profile = document.getElementById("profile");
 profile.innerHTML = `
-  <h2>Welcome back, ${user.userName}!</h2>
+  <h2>Welcome back, ${user.fName}!</h2>
   <div>
     <p class="error"></p>
-    <button class="btn" id="edit">Edit Info</button>
-    <button class="btn" id="delete">Delete Account</button>
+    <ul>
+      <li><button class="button" id="editForm">Edit Info</button></li>
+      <li><button class="button" id="delete">Delete Account</button></li>
+    </ul>
   </div>
-`;
+`
 
-document.getElementById("edit").addEventListener('click', editProfile);
+document.getElementById("editForm").addEventListener('click', editProfile);
 document.getElementById("delete").addEventListener('click', deleteAccount);
 
 function editProfile() {
   profile.classList.toggle("hide");
   let editForm = document.getElementById("editForm");
   editForm.innerHTML = `
-    <form id="form" class="basic-form">
+    <form id="emailForm">
       <p class="error"></p>
       <h2>Edit Profile</h2>
       <label for="username">Change Username</label>
       <input type="text" name="username" id="username" placeholder="${user.userName}">
       <br>
-      <input type="submit" value="Submit">
+      <input type="submit" class="button" value="Submit">
     </form>
 
-    <form id="passForm" class="basic-form">
+    <form id="passForm">
       <p class="error"></p>
       <h2>Change Password</h2>
       <label for="pswd">Change Password</label>
@@ -42,7 +44,7 @@ function editProfile() {
       <input type="submit" value="Submit">
     </form>
     <button class="btn" id="cancel">Cancel</button>
-  `;
+  `
 
   editForm.addEventListener('submit', editAccount)
   document.getElementById("cancel").addEventListener('click', (e) => {
@@ -61,7 +63,7 @@ function editAccount(e) {
 }
 
 function deleteAccount() {
-  if(confirm('Are you sure you want to delete your account???')) {
+  if(confirm('Are you sure you want to delete your account?')) {
     fetchData('/users/delete', {userId: user.userId}, "DELETE")
     .then((data) => {
       if(!data.message) {

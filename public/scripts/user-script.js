@@ -22,7 +22,7 @@ function login(e) {
     document.querySelector("#loginForm p.error").innerHTML = errText;
     document.getElementById("pswd").value = "";
     console.log(`Error! ${errText}`)
-  });
+  })
 }
 
 const regForm = document.getElementById("registerForm");

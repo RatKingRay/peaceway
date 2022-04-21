@@ -24,7 +24,7 @@ router
   .post('/register', (req, res) => {
     try {
       const user = User.register(req.body);
-      res.send({...user, password: undefined})
+      res.send({...user, fName, password: undefined})
     } catch(error) {
       res.status(401).send({message: error.message});
     }
@@ -33,7 +33,7 @@ router
   .delete('/delete', (req, res) => {
     try {
       User.deleteUser(req.body.userId);
-      res.send({success: "We'll miss you...:("});
+      res.send({success: "We'll miss you!"});
     } catch(error) {
       res.status(401).send({message: error.message});
     }
