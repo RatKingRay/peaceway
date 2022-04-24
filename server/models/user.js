@@ -53,4 +53,8 @@ function userExists(emailTemp) {
   return users.filter((u) => u.email === emailTemp);
 }
 
+// function edit(emailTemp) {
+
+// }
+
 module.exports = { getUsers, login, register, deleteUser };

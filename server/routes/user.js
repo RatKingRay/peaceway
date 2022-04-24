@@ -24,11 +24,20 @@ router
   .post('/register', (req, res) => {
     try {
       const user = User.register(req.body);
-      res.send({...user, fName, password: undefined})
+      res.send({...user, password: undefined})
     } catch(error) {
       res.status(401).send({message: error.message});
     }
   })
+
+  // .post('/edit', (req, res) => {
+  //   try {
+  //     const user = User.edit(req.body);
+  //     res.send({...user, fName, password: undefined})
+  //   } catch(error) {
+  //     res.status(401).send({message: error.message});
+  //   }
+  // })
 
   .delete('/delete', (req, res) => {
     try {

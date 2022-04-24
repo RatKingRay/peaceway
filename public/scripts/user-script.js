@@ -10,6 +10,7 @@ function login(e) {
 
   const emailTemp = document.getElementById("email").value;
   const pswd = document.getElementById("pswd").value;
+  
   fetchData('/users/login', {email: emailTemp, password: pswd}, "POST")
   .then((data) => {
     if(!data.message) {
