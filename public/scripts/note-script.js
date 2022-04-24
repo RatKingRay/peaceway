@@ -13,31 +13,75 @@ from './main.js'
 //   return JSON.parse(localStorage.getItem('note'));
 // }
 
-function retrieve() {
-  //Retrieve other stored notes and put them up here
+// function retrieve() {
+//   //Retrieve other stored notes and put them up here
 
-  fetchData('/users/retrieve', {email: emailTemp, password: pswd}, "GET")
-  .then((data) => {
-    if(!data.message) {
-      //displayNote(data)
-      data.forEach(note => console.log(note))
-      data.forEach(note => displayNote(note))
-      // window.location.href = "notes.html";
-    }
-  })
-  .catch((error) => {
-    const errText = error.message;
-    // document.querySelector("#loginForm p.error").innerHTML = errText;
-    // document.getElementById("pswd").value = "";
-    console.log(`Error! ${errText}`)
-  })
-}
+//   // fetchData('/users/retrieve', {content: contentTemp, mood: moodTemp, is_vent: is_ventTemp}, "GET")
+//   // .then((data) => {
+//   //   if(!data.message) {
+//   //     //displayNote(data)
+//   //     data.forEach(note => console.log(note))
+//   //     data.forEach(note => displayNote(note))
+//   //     // window.location.href = "notes.html";
+//   //   }
+//   // })
+//   // .catch((error) => {
+//   //   const errText = error.message;
+//   //   // document.querySelector("#loginForm p.error").innerHTML = errText;
+//   //   // document.getElementById("pswd").value = "";
+//   //   console.log(`Error! ${errText}`)
+//   // })
+// }
 
 //Have to make code to wipe is_vent notes
 
 let noteForm = document.getElementById("noteForm")
 if(noteForm) noteForm.addEventListener('submit', addNote)
 
+// function addNote(e) {
+//     e.preventDefault()
+
+//     const flexNotes = document.getElementById("flex-notes")
+//     const contentTemp = document.getElementById("note").value
+//     const moodTemp = document.getElementById("emotion").value
+//     const is_ventTemp = document.getElementById("is_vent").value
+
+//     fetchData('/notes/create', {content: contentTemp, mood: moodTemp, is_vent: is_ventTemp}, "POST")
+//     .then((data) => {
+//       if(!data.message) {
+//         console.log("Post success")
+//       }
+//     })
+//     .catch((error) => {
+//       const errText = error.message;
+//       console.log(`Error! ${errText}`)
+//     })
+
+//     retrieve()
+
+//     //const newNote = new Note(note)
+//     //console.log(newNote)
+
+//     // let p = document.createElement('p')
+//     // p.appendChild(document.createTextNode(contentTemp))
+//     // p.appendChild(document.createElement('hr'))
+//     // p.appendChild(document.createElement('br'))
+//     // p.appendChild(document.createTextNode(`This made you feel: ${moodTemp}`))
+//     // p.appendChild(document.createElement('br'))
+//     // p.className = "note"
+//     // flexNotes.appendChild(p)
+
+//     // let button = document.createElement('button')
+//     // button.appendChild(document.createTextNode("Delete"))
+//     // button.id = "deleteBtn"
+//     // button.className = "button"
+//     // p.appendChild(button)
+
+
+//     // document.getElementById("note").value = ""
+// }
+
+//Working addNote, but doesnt work with database
 function addNote(e) {
     e.preventDefault()
 
@@ -49,6 +93,8 @@ function addNote(e) {
     fetchData('/notes/create', {content: contentTemp, mood: moodTemp, is_vent: is_ventTemp}, "POST")
     .then((data) => {
       if(!data.message) {
+        console.log(data)
+        localStorage.setItem('note', JSON.stringify(data))
         console.log("Post success")
       }
     })
@@ -57,27 +103,28 @@ function addNote(e) {
       console.log(`Error! ${errText}`)
     })
 
-    //const newNote = new Note(note)
-    //console.log(newNote)
+    // const newNote = new Note(note)
+    // console.log(newNote)
 
-    // let p = document.createElement('p')
-    // p.appendChild(document.createTextNode(contentTemp))
-    // p.appendChild(document.createElement('hr'))
-    // p.appendChild(document.createElement('br'))
-    // p.appendChild(document.createTextNode(`This made you feel: ${moodTemp}`))
-    // p.appendChild(document.createElement('br'))
-    // p.className = "note"
-    // flexNotes.appendChild(p)
+    let p = document.createElement('p')
+    p.appendChild(document.createTextNode(contentTemp))
+    p.appendChild(document.createElement('hr'))
+    p.appendChild(document.createElement('br'))
+    p.appendChild(document.createTextNode(`This made you feel: ${moodTemp}`))
+    p.appendChild(document.createElement('br'))
+    p.className = "note"
+    flexNotes.appendChild(p)
 
-    // let button = document.createElement('button')
-    // button.appendChild(document.createTextNode("Delete"))
-    // button.id = "deleteBtn"
-    // button.className = "button"
-    // p.appendChild(button)
+    let button = document.createElement('button')
+    button.appendChild(document.createTextNode("Delete"))
+    button.id = "deleteBtn"
+    button.className = "button"
+    p.appendChild(button)
 
 
-    // document.getElementById("note").value = ""
+    document.getElementById("note").value = ""
 }
+
 function displayNote(data) {
 
     const flexNotes = data[0]
@@ -87,6 +134,7 @@ function displayNote(data) {
 
     //const newNote = new Note(note)
     //console.log(newNote)
+    //return JSON.parse(localStorage.getItem('user'));
 
     let p = document.createElement('p')
     p.appendChild(document.createTextNode(contentTemp))

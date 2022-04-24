@@ -15,7 +15,7 @@ router
     .post('/create', (req, res) => {
         try {
         const note = Note.create(req.body);
-        // res.send({...note})
+        res.send({...note, content: undefined})
         } catch(error) {
         res.status(401).send({message: error.message});
         }
