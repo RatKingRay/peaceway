@@ -32,7 +32,7 @@ function editProfile() {
       <label for="emailInput">Change Email</label>
       <input type="text" name="emailInput" id="emailInput" placeholder="${user.email}">
       <br>
-      <input type="submit" class="button" value="Submit">
+      <input type="submit" id="edit" class="button" value="Submit">
     </form>
 
     <form class="basic-form" id="passForm">
@@ -44,7 +44,6 @@ function editProfile() {
     </form>
     <!-- <button class="button" id="cancel">Cancel</button> -->
   `
-
   editForm.addEventListener('submit', editAccount)
   // document.getElementById("cancel").addEventListener('click', (e) => {
   //   window.location.href = "profile.html" 
@@ -55,19 +54,25 @@ function editAccount(e) {
   e.preventDefault();
 
   const emailTemp = document.getElementById("emailInput").value
-  fetchData('/users/edit', {email: user.emailTemp}, "PUT")
-  .then((data) => {
-    if(!data.message) {
-      console.log(data.success)
-      // window.location.href = "register.html"
-    }
-  })
-    // .catch((error) => {
-    //   const errText = error.message 
-    //   document.querySelector("#editForm p.error").innerHTML = errText 
-    //   console.log(`Error! ${errText}`)
-    // }) 
-  
+  if(emailTemp === user.email) {
+    let err = "No changes made"
+    document.querySelector("#editForm p.error").innerHTML = err
+  }
+  else {
+    fetchData('/users/edit', {userId: user.userId, email: emailTemp}, "PUT")
+    .then((data) => {
+      if(!data.message) {
+        removeCurrentUser()
+        setCurrentUser(data)
+        window.location.href = "profile.html"
+      }
+    })
+    .catch((error) => {
+      const errText = error.message 
+      document.querySelector("#editForm p.error").innerHTML = errText 
+      console.log(`Error! ${errText}`)
+    }) 
+  }
 }
 
 function deleteAccount(e) {
