@@ -49,12 +49,20 @@ function deleteUser(userId) {
   console.log(users)
 }
 
-function userExists(emailTemp) {
-  return users.filter((u) => u.email === emailTemp);
+function editUser(user) {
+  const u = userIdExists(user.userId)
+  if(!u[0]) throw Error('User not found');
+  u[0].email = user.email
+  return u[0]
 }
 
-// function edit(emailTemp) {
+function userExists(emailTemp) {
+  return users.filter((u) => u.email === emailTemp)
+}
 
-// }
+//Since we were changing the email I believed that we shouldn't be checking for the new email value being passed
+function userIdExists(userIdTemp) {
+  return users.filter((u) => u.userId === userIdTemp)
+}
 
-module.exports = { getUsers, login, register, deleteUser };
+module.exports = { getUsers, login, register, deleteUser, editUser };

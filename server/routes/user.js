@@ -30,14 +30,15 @@ router
     }
   })
 
-  // .post('/edit', (req, res) => {
-  //   try {
-  //     const user = User.edit(req.body);
-  //     res.send({...user, fName, password: undefined})
-  //   } catch(error) {
-  //     res.status(401).send({message: error.message});
-  //   }
-  // })
+  .put('/edit', (req, res) => {
+    try {
+      console.log(req.body)
+      const user = User.editUser(req.body);
+      res.send({...user, password: undefined})
+    } catch(error) {
+      res.status(401).send({message: error.message});
+    }
+  })
 
   .delete('/delete', (req, res) => {
     try {
