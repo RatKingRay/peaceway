@@ -16,8 +16,8 @@ const notes = [
 let getNotes = () => notes;
 
 function create(note) {
-  // const u = userExists(user.email);
-  // if(u.length>0) throw Error('Email already exists')
+  // const n = noteExists(note.noteId);
+  // if(n.length>0) throw Error('Note already exists')
   
   const newNote = {
     noteId: notes[notes.length-1].noteId + 1,
@@ -25,6 +25,7 @@ function create(note) {
     mood: note.mood,
     is_vent: note.is_vent
   }
+  
   notes.push(newNote)   //to put onto stack of user objects
   return newNote
 }
@@ -33,6 +34,10 @@ function deleteNote(noteId) {
   let i = notes.map((note) => note.noteId).indexOf(noteId);
   notes.splice(i, 1);
   console.log(notes)
+}
+
+function noteExists(noteIdTemp) {
+  return users.filter((u) => u.noteId === noteIdTemp)
 }
 
 module.exports = { create, getNotes, deleteNote }
