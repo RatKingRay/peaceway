@@ -1,25 +1,42 @@
-// const express = require('express');
-// const User = require('../models/user');
-// const router = express.Router();
+const express = require('express');
+const Note = require('../models/note');
+const router = express.Router();
 
-// router
-//   .get('/', (req, res) => {
-//     try {
-//       const users = User.getUsers();
-//       res.send(users);
-//     } catch(err) {
-//       res.status(401).send({message: err.message});
-//     }
-//   })
+router
+    .get('/', (req, res) => {
+        try {
+        const notes = Note.getNotes();
+        res.send(notes);
+        } catch(err) {
+        res.status(401).send({message: err.message});
+        }
+    })
 
-//   .post('/login', async (req, res) => {
-//     try {
-//       const user = await User.login(req.body.email, req.body.password);
-//       res.send({...user, password: undefined});
-//     } catch (error) {
-//       res.status(401).send({message: error.message});
-//     }
-//   })
+    .post('/create', (req, res) => {
+        try {
+        const note = Note.create(req.body);
+        // res.send({...note})
+        } catch(error) {
+        res.status(401).send({message: error.message});
+        }
+    })
 
-// module.exports = router;
+    // .get('/update', (req, res) => {
+    //     try {
+    //     const notes = Note.getNotes();
+    //     res.send(notes);
+    //     } catch(err) {
+    //     res.status(401).send({message: err.message});
+    //     }
+    // })
 
+    .delete('/delete_note', (req, res) => {
+        try {
+          Note.deleteNote(req.body.noteId);
+          res.send({success: "Cya note!"});
+        } catch(error) {
+          res.status(401).send({message: error.message});
+        }
+      })
+
+module.exports = router;

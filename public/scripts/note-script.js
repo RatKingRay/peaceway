@@ -1,57 +1,39 @@
 
-class User {
-    constructor(id, fName, lName, email, bDay, password) {
-        this.userId = id
-        this.fName = fName
-        this.lName = lName
-        this.email = email
-        this.bDay = bDay
-        this.password = password
-    }
-    getUserId() {
-        return this.userId
-    }
-    getFName() {
-        return this.fName
-    }
-    getLName() {
-        return this.lName
-    }
-    getEmail() {
-        return this.email
-    }
-    getBDay() {
-        return this.bDay
-    }
-    getPassword() {
-        return this.password
-    }
+import 
+{ fetchData } 
+from './main.js'
 
-    setUserId(id) {
-        this.userId = id
+// function setNote(note) {
+//   localStorage.setItem('user', JSON.stringify(user));
+// }
+
+// function getNotes(e) {
+//   e.preventDefault()
+
+//   return JSON.parse(localStorage.getItem('note'));
+// }
+
+function retrieve() {
+  //Retrieve other stored notes and put them up here
+
+  fetchData('/users/retrieve', {email: emailTemp, password: pswd}, "GET")
+  .then((data) => {
+    if(!data.message) {
+      //displayNote(data)
+      data.forEach(note => console.log(note))
+      data.forEach(note => displayNote(note))
+      // window.location.href = "notes.html";
     }
-    setFName(name) {
-        this.fName = name
-    }
-    setLName(name) {
-        this.LName = name
-    }
-    setEmail(email) {
-        this.email = email
-    }
-    setBDay(day) {
-        this.bDay = day
-    }
-    setPassword(password) {
-        this.password = password
-    }
+  })
+  .catch((error) => {
+    const errText = error.message;
+    // document.querySelector("#loginForm p.error").innerHTML = errText;
+    // document.getElementById("pswd").value = "";
+    console.log(`Error! ${errText}`)
+  })
 }
 
-
-
-import 
-{ fetchData, getCurrentUser } 
-from './main.js'
+//Have to make code to wipe is_vent notes
 
 let noteForm = document.getElementById("noteForm")
 if(noteForm) noteForm.addEventListener('submit', addNote)
@@ -60,9 +42,11 @@ function addNote(e) {
     e.preventDefault()
 
     const flexNotes = document.getElementById("flex-notes")
-    const note = document.getElementById("note").value
+    const contentTemp = document.getElementById("note").value
+    const moodTemp = document.getElementById("emotion").value
+    const is_ventTemp = document.getElementById("is_vent").value
 
-    fetchData('/notes/add', {content: note}, "POST")
+    fetchData('/notes/create', {content: contentTemp, mood: moodTemp, is_vent: is_ventTemp}, "POST")
     .then((data) => {
       if(!data.message) {
         console.log("Post success")
@@ -76,15 +60,46 @@ function addNote(e) {
     //const newNote = new Note(note)
     //console.log(newNote)
 
+    // let p = document.createElement('p')
+    // p.appendChild(document.createTextNode(contentTemp))
+    // p.appendChild(document.createElement('hr'))
+    // p.appendChild(document.createElement('br'))
+    // p.appendChild(document.createTextNode(`This made you feel: ${moodTemp}`))
+    // p.appendChild(document.createElement('br'))
+    // p.className = "note"
+    // flexNotes.appendChild(p)
+
+    // let button = document.createElement('button')
+    // button.appendChild(document.createTextNode("Delete"))
+    // button.id = "deleteBtn"
+    // button.className = "button"
+    // p.appendChild(button)
+
+
+    // document.getElementById("note").value = ""
+}
+function displayNote(data) {
+
+    const flexNotes = data[0]
+    const contentTemp = document.getElementById("note").value
+    const moodTemp = document.getElementById("emotion").value
+    const is_ventTemp = document.getElementById("is_vent").value
+
+    //const newNote = new Note(note)
+    //console.log(newNote)
+
     let p = document.createElement('p')
-    p.appendChild(document.createTextNode(note))
+    p.appendChild(document.createTextNode(contentTemp))
+    p.appendChild(document.createElement('hr'))
+    p.appendChild(document.createElement('br'))
+    p.appendChild(document.createTextNode(`This made you feel: ${moodTemp}`))
     p.appendChild(document.createElement('br'))
     p.className = "note"
     flexNotes.appendChild(p)
 
     let button = document.createElement('button')
     button.appendChild(document.createTextNode("Delete"))
-    button.id = "delete"
+    button.id = "deleteBtn"
     button.className = "button"
     p.appendChild(button)
 
@@ -92,27 +107,25 @@ function addNote(e) {
     document.getElementById("note").value = ""
 }
 
-let deleteBtn = document.getElementById("delete")
-if(deleteBtn) deleteBtn.addEventListener('submit', deleteNote)
+//Btn is only local so we have a bit of an issue
+//If we made it so we just retireved from database than we can just drop it from
+//db and refresh the page
+let deleteBtn = document.getElementById("deleteBtn")
+if(deleteBtn) deleteBtn.addEventListener('click', deleteNote) 
 
-function deleteNote(e) {
-    e.preventDefault()
-
-    // function deleteAccount() {
-    //     if(confirm('Are you sure you want to delete your account???')) {
-    //       fetchData('/note/delete', {userId: user.userId}, "DELETE")
-    //       .then((data) => {
-    //         if(!data.message) {
-    //           console.log(data.success)
-    //           logout();
-    //           window.location.href = "register.html"
-    //         }
-    //       })
-    //       .catch((error) => {
-    //         const errText = error.message;
-    //         document.querySelector("#profile div p.error").innerHTML = errText;
-    //         console.log(`Error! ${errText}`)
-    //       })
-    //     }
-    //   }
+function deleteNote() { 
+  console.log("Hello?")
+  
+  fetchData('/users/delete_note', {noteId: note.noteId}, "DELETE")
+  .then((data) => {
+    if(!data.message) {
+      console.log(data.success)
+      window.location.href = "notes.html"
+    }
+  })
+  .catch((error) => {
+    const errText = error.message 
+    // document.querySelector("#profile div p.error").innerHTML = errText 
+    console.log(`Error! ${errText}`)
+  })
 }
