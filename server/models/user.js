@@ -1,3 +1,5 @@
+const con = require("./db_connect")
+
 const users = [
   {
     userId: 12345,
