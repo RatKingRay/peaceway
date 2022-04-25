@@ -12,7 +12,7 @@ function setLimit(e) {
 
     const budgetTemp = document.getElementById("weekly_budget").value
 
-    fetchData('/budget/update', {weekly_limit: budgetTemp}, "POST")
+    fetchData('/exercise/create', {weekly_limit: budgetTemp}, "POST")
     .then((data) => {
       if(!data.message) {
         console.log("Post success")
