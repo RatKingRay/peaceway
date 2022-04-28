@@ -8,6 +8,15 @@ const con = mysql.createConnection( {
     database: process.env.MYSQL_DATABASE
 })
 
+const query = (sql, binding) => {
+    return new Promise((resolve, reject) => {
+        con.query(sql, binding, (err, result, fields) => {
+            if (err) reject(err)
+            resolve(result)
+        })
+    })
+}
+
 con.connect(function(err) {
     if (err) throw err
     console.log("Connected")

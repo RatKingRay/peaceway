@@ -1,5 +1,15 @@
 const con = require("./db_connect")
 
+async function createTable() {
+  let sql = `CREATE TABLE IF NOT EXISTS users (
+    user_id INT NOT NULL AUTO_INCREMENT,
+    user_email VARCHAR(255) NOT NULL UNIQUE,
+    user_password VARCHAR(50),
+    CONSTRAINT user_pk PRIMARY KEY(user_id)
+  )`
+  await con.query(sql)
+}
+
 // con.connect(function(err) {
 //   if(err) throw err
 //   let sql = `CREATE TABLE IF NOT EXISTS users (

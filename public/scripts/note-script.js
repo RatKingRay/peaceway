@@ -74,7 +74,8 @@ function deleteNote() {
 }
 
 // function displayNote(data) {
-
+       
+//     Select * from 
 //     const flexNotes = data[0]
 //     const contentTemp = document.getElementById("note").value
 //     const moodTemp = document.getElementById("emotion").value
