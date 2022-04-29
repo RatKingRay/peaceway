@@ -1,3 +1,17 @@
+const con = require("./db_connect")
+
+async function createTable() {
+  let sql = `CREATE TABLE IF NOT EXISTS notes (
+    note_id INT NOT NULL AUTO_INCREMENT,
+    note_content VARCHAR(255),
+    note_emotion VARCHAR(50),
+    note_is_vent BIT,
+    CONSTRAINT note_pk PRIMARY KEY(note_id)
+  )`
+  await con.query(sql)
+}
+createTable()
+
 const notes = [
     {
       noteId: 12345,
@@ -5,15 +19,23 @@ const notes = [
     },
     {
       noteId: 55555,
-      content: "fredburger54",
+      content: "Get assigment done",
     },
     {
       noteId: 34212,
-      content: "coolcathy34",
+      content: "Bake pie",
     }
 ]
 
-let getNotes = () => notes;
+let getNotes = async () => {
+  const sql = "SELECT * FROM notes"
+  return await con.query(sql)   //Have to use await and async because query is async
+}
+
+function displayNotes() {
+  let notes = await getNotes()
+  return notes
+}
 
 function create(note) {
   // const n = noteExists(note.noteId);

@@ -4,6 +4,7 @@ import
 from './main.js'
 
 //Have to make code to wipe is_vent notes
+display()
 
 let noteForm = document.getElementById("noteForm")
 if(noteForm) noteForm.addEventListener('submit', addNote)
@@ -57,9 +58,9 @@ function addNote(e) {
 // if(deleteBtn) deleteBtn.addEventListener('click', deleteNote) 
 
 function deleteNote() { 
-  console.log("Hello?")
-  
-  fetchData('/users/delete_note', {noteId: note.noteId}, "DELETE")
+  console.log("in deleteNote")
+  //Sends parameters to routes, have to use key
+  fetchData('/notes/delete', {noteId: note.noteId}, "DELETE")
   .then((data) => {
     if(!data.message) {
       console.log(data.success)
@@ -73,36 +74,52 @@ function deleteNote() {
   })
 }
 
-// function displayNote(data) {
-       
-//     Select * from 
-//     const flexNotes = data[0]
-//     const contentTemp = document.getElementById("note").value
-//     const moodTemp = document.getElementById("emotion").value
-//     const is_ventTemp = document.getElementById("is_vent").value
-
-//     //const newNote = new Note(note)
-//     //console.log(newNote)
-//     //return JSON.parse(localStorage.getItem('user'));
-
-//     let p = document.createElement('p')
-//     p.appendChild(document.createTextNode(contentTemp))
-//     p.appendChild(document.createElement('hr'))
-//     p.appendChild(document.createElement('br'))
-//     p.appendChild(document.createTextNode(`This made you feel: ${moodTemp}`))
-//     p.appendChild(document.createElement('br'))
-//     p.className = "note"
-//     flexNotes.appendChild(p)
-
-//     let button = document.createElement('button')
-//     button.appendChild(document.createTextNode("Delete"))
-//     button.id = "deleteBtn"
-//     button.className = "button"
-//     p.appendChild(button)
+function display() {
+  fetchData('/notes/display', {}, "POST")
+  .then((data) => {
+    if(!data.message) {
+      console.log(data.success)
+      data.forEach(note => displayNote(note))
+      window.location.href = "notes.html"
+    }
+  })
+  .catch((error) => {
+    const errText = error.message 
+    // document.querySelector("#profile div p.error").innerHTML = errText 
+    console.log(`Error! ${errText}`)
+  })
+}
 
 
-//     document.getElementById("note").value = ""
-// }
+ function displayNote(note) {
+
+  const flexNotes = document.getElementById("flex-notes")
+  const contentTemp = note.content
+  const moodTemp = note.mood
+  const is_ventTemp = note.vent
+
+  //const newNote = new Note(note)
+  //console.log(newNote)
+  //return JSON.parse(localStorage.getItem('user'));
+
+  let p = document.createElement('p')
+  p.appendChild(document.createTextNode(contentTemp))
+  p.appendChild(document.createElement('hr'))
+  p.appendChild(document.createElement('br'))
+  p.appendChild(document.createTextNode(`This made you feel: ${moodTemp}`))
+  p.appendChild(document.createElement('br'))
+  p.className = "note"
+  flexNotes.appendChild(p)
+
+  let button = document.createElement('button')
+  button.appendChild(document.createTextNode("Delete"))
+  button.id = "deleteBtn"
+  button.className = "button"
+  p.appendChild(button)
+
+
+  document.getElementById("note").value = ""
+}
 
 // function addNote(e) {
 //     e.preventDefault()

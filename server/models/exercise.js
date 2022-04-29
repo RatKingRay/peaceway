@@ -1,3 +1,17 @@
+const con = require("./db_connect")
+
+async function createTable() {
+  let sql = `CREATE TABLE IF NOT EXISTS users (
+    user_id INT NOT NULL AUTO_INCREMENT,
+    user_email VARCHAR(255) NOT NULL UNIQUE,
+    user_fname VARCHAR(50),
+    user_password VARCHAR(50),
+    CONSTRAINT user_pk PRIMARY KEY(user_id)
+  )`
+  await con.query(sql)
+}
+createTable()
+
 const exercises = [
     {
       exerciseId: 24,
@@ -28,7 +42,10 @@ const exercises = [
     }
 ]
 
-let getExercises = () => exercises;
+let getExercises = async () => {
+  const sql = "SELECT * FROM notes"
+  return await con.query(sql)   //Have to use await and async because query is async
+}
 
 function create(excercise) {
   // const n = noteExists(note.noteId);

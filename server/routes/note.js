@@ -12,6 +12,15 @@ router
         }
     })
 
+    .post('/display', (req, res) => {
+        try {
+        const notes = Note.displayNotes();
+        res.send(notes);
+        } catch(err) {
+        res.status(401).send({message: err.message});
+        }
+    })
+
     .post('/create', (req, res) => {
         try {
         const note = Note.create(req.body);
@@ -30,7 +39,7 @@ router
     //     }
     // })
 
-    .delete('/delete_note', (req, res) => {
+    .delete('/delete', (req, res) => {
         try {
           Note.deleteNote(req.body.noteId);
           res.send({success: "Cya note!"});

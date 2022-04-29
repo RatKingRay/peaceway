@@ -25,5 +25,6 @@ con.connect(function(err) {
         console.log("Database created")
     })
 })
-
-module.exports = con
+const createQuery = "CREATE DATABASE IF NOT EXISTS bmi_db"
+con.query(createQuery)
+module.exports = { con, query }
