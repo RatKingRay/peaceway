@@ -2,10 +2,10 @@ const con = require("./db_connect")
 
 async function createTable() {
   let sql = `CREATE TABLE IF NOT EXISTS notes (
-    note_id INT NOT NULL AUTO_INCREMENT,
-    note_content VARCHAR(255),
-    note_emotion VARCHAR(50),
-    note_is_vent BIT,
+    noteId INT NOT NULL AUTO_INCREMENT,
+    content VARCHAR(255),
+    emotion VARCHAR(50),
+    is_vent BOOLEAN,
     CONSTRAINT note_pk PRIMARY KEY(note_id)
   )`
   await con.query(sql)
@@ -33,7 +33,7 @@ let getNotes = async () => {
 }
 
 function displayNotes() {
-  let notes = await getNotes()
+  let notes = getNotes()
   return notes
 }
 

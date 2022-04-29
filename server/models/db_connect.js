@@ -20,7 +20,7 @@ const query = (sql, binding) => {
 con.connect(function(err) {
     if (err) throw err
     console.log("Connected")
-    con.query("CREATE DATABASE IF NOT EXISTS web_db", function (err, result) {
+    con.query("CREATE DATABASE IF NOT EXISTS bmi_db", function (err, result) {
         if (err) throw err
         console.log("Database created")
     })

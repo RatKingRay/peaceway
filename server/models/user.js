@@ -2,11 +2,11 @@ const con = require("./db_connect")
 
 async function createTable() {
   let sql = `CREATE TABLE IF NOT EXISTS users (
-    user_id INT NOT NULL AUTO_INCREMENT,
-    user_email VARCHAR(255) NOT NULL UNIQUE,
-    user_fname VARCHAR(50),
-    user_password VARCHAR(50),
-    CONSTRAINT user_pk PRIMARY KEY(user_id)
+    userId INT NOT NULL AUTO_INCREMENT,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    fName VARCHAR(50),
+    password VARCHAR(50) NOT NULL,
+    CONSTRAINT user_pk PRIMARY KEY(userId)
   )`
   await con.query(sql)
 }
@@ -64,10 +64,10 @@ async function getUser(user) {
   let sql
   if(user.userId) {
     sql = `SELECT * FROM users
-    WHERE user_id = ${user.userId}`
+    WHERE userId = ${user.userId}`
   } else {
     sql = `SELECT * FROM users
-    WHERE user_email = "${user.email}"
+    WHERE email = "${user.email}"
     `
   }
   return await con.query(sql)
@@ -100,7 +100,7 @@ async function register(user) {
   const u = userExists(user.email)
   if(u.length > 0) throw Error('Email already in use')
 
-  const sql = `INSERT INTO users (user_email, user_password)
+  const sql = `INSERT INTO users (email, password)
   VALUES ( "${user.email}", "${user.password}")
   `
 
@@ -109,9 +109,9 @@ async function register(user) {
   return newUser[0]
 }
 
-function deleteUser(userId) {
+async function deleteUser(userId) {
   const sql = `DELETE FROM users
-  WHERE user_id = ${userId}
+  WHERE userId = ${userId}
   `
   const insert = await con.query(sql)
 }
@@ -125,8 +125,8 @@ function deleteUser(userId) {
 
 async function editUser(user) {
   const sql = `UPDATE users SET
-  user_email = "${user.email}"
-  WHERE user_id = ${user.userId}
+  email = "${user.email}"
+  WHERE userId = ${user.userId}
   `
   return await con.query(sql)
 }
