@@ -10,52 +10,57 @@ let noteForm = document.getElementById("noteForm")
 if(noteForm) noteForm.addEventListener('submit', addNote)
 
 function addNote(e) {
-    e.preventDefault()
+  e.preventDefault()
 
-    const flexNotes = document.getElementById("flex-notes")
-    const contentTemp = document.getElementById("note").value
-    const moodTemp = document.getElementById("emotion").value
-    const is_ventTemp = document.getElementById("is_vent").value
+  const flexNotes = document.getElementById("flex-notes")
+  const contentTemp = document.getElementById("note").value
+  const moodTemp = document.getElementById("emotion").value
+  let is_ventTemp
+  if(document.getElementById("is_vent").checked) {
+    is_ventTemp = 1
+  } else {
+    is_ventTemp = 0
+  }
 
-    fetchData('/notes/create', {content: contentTemp, mood: moodTemp, is_vent: is_ventTemp}, "POST")
-    .then((data) => {
-      if(!data.message) {
-        console.log(data)
-        localStorage.setItem('note', JSON.stringify(data))
-        console.log("Post success")
-      }
-    })
-    .catch((error) => {
-      const errText = error.message;
-      console.log(`Error! ${errText}`)
-    })
+  fetchData('/notes/create', {content: contentTemp, mood: moodTemp, is_vent: is_ventTemp}, "POST")
+  .then((data) => {
+    if(!data.message) {
+      console.log(data)
+      // localStorage.setItem('note', JSON.stringify(data))
+      console.log("Post success")
+    }
+  })
+  .catch((error) => {
+    const errText = error.message;
+    console.log(`Error! ${errText}`)
+  })
 
-    let p = document.createElement('p')
-    p.className = "note"
-    p.innerHTML = `
-      ${contentTemp}
-      <hr>
-      <br>
-      This made you feel: ${moodTemp}
-      <br>
-      <button class="button" id="deleteBtn">Delete</button>
-    `
-    p.addEventListener('click', deleteNote())
+  let p = document.createElement('p')
+  p.className = "note"
+  p.innerHTML = `
+    ${contentTemp}
+    <hr>
+    <br>
+    This made you feel: ${moodTemp}
+    <br>
+    <button class="button" id="deleteBtn">Delete</button>
+  `
+  let btn = document.getElementById("deleteBtn")
+  if(btn) p.addEventListener('click', deleteNote)
+  p.addEventListener('click', deleteNote)
+  
 
-    // const newNote = new Note(note)
-    // console.log(newNote)
+  // const newNote = new Note(note)
+  // console.log(newNote)
 
-    flexNotes.appendChild(p)
+  flexNotes.appendChild(p)
 
-    document.getElementById("note").value = ""
+  document.getElementById("note").value = ""
 }
 
 
-//Btn is only local so we have a bit of an issue
 //If we made it so we just retireved from database than we can just drop it from
 //db and refresh the page
-// let deleteBtn = document.getElementById("deleteBtn")
-// if(deleteBtn) deleteBtn.addEventListener('click', deleteNote) 
 
 function deleteNote() { 
   console.log("in deleteNote")
@@ -79,44 +84,39 @@ function display() {
   .then((data) => {
     if(!data.message) {
       console.log(data.success)
-      data.forEach(note => displayNote(note))
-      window.location.href = "notes.html"
+      data.forEach(note => displayNotes(note))
     }
   })
   .catch((error) => {
     const errText = error.message 
-    // document.querySelector("#profile div p.error").innerHTML = errText 
     console.log(`Error! ${errText}`)
   })
 }
 
 
- function displayNote(note) {
+ function displayNotes(note) {
 
   const flexNotes = document.getElementById("flex-notes")
   const contentTemp = note.content
   const moodTemp = note.mood
-  const is_ventTemp = note.vent
-
-  //const newNote = new Note(note)
-  //console.log(newNote)
-  //return JSON.parse(localStorage.getItem('user'));
+  //const is_ventTemp = note.is_vent
 
   let p = document.createElement('p')
-  p.appendChild(document.createTextNode(contentTemp))
-  p.appendChild(document.createElement('hr'))
-  p.appendChild(document.createElement('br'))
-  p.appendChild(document.createTextNode(`This made you feel: ${moodTemp}`))
-  p.appendChild(document.createElement('br'))
   p.className = "note"
+  p.innerHTML = `
+    ${contentTemp}
+    <hr>
+    <br>
+    This made you feel: ${moodTemp}
+    <br>
+    <button class="button" id="deleteBtn">Delete</button>
+  `
+
+  let btn = document.getElementById("deleteBtn")
+  if(btn) p.addEventListener('click', deleteNote)
+  p.addEventListener('click', deleteNote)
+
   flexNotes.appendChild(p)
-
-  let button = document.createElement('button')
-  button.appendChild(document.createTextNode("Delete"))
-  button.id = "deleteBtn"
-  button.className = "button"
-  p.appendChild(button)
-
 
   document.getElementById("note").value = ""
 }

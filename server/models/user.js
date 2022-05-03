@@ -12,27 +12,6 @@ async function createTable() {
 }
 createTable()
 
-const users = [
-  {
-    userId: 12345,
-    fName: "Raymond",
-    email: "raymond",
-    password: "123"
-  },
-  {
-    userId: 55555,
-    fName: "Sal",
-    email: "fredburger54",
-    password: "password"
-  },
-  {
-    userId: 34212,
-    fName: "Nick",
-    email: "coolcathy34",
-    password: "badpassword"
-  }
-]
-
 let getUsers = async () => {
   const sql = "SELECT * FROM users"
   return await con.query(sql)   //Have to use await and async because query is async

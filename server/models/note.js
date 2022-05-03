@@ -12,54 +12,38 @@ async function createTable() {
 }
 createTable()
 
-// const notes = [
-//     {
-//       noteId: 12345,
-//       content: "hello",
-//     },
-//     {
-//       noteId: 55555,
-//       content: "Get assigment done",
-//     },
-//     {
-//       noteId: 34212,
-//       content: "Bake pie",
-//     }
-// ]
-
 let getNotes = async () => {
   const sql = "SELECT * FROM notes"
   return await con.query(sql)   //Have to use await and async because query is async
 }
 
-function displayNotes() {
-  let notes = getNotes()
-  return notes
+async function displayNotes() {
+  const sql = "SELECT * FROM notes"
+  return await con.query(sql)
 }
 
-function create(note) {
+async function create(note) {
   // const n = noteExists(note.noteId);
   // if(n.length>0) throw Error('Note already exists')
   
-  const newNote = {
-    noteId: notes[notes.length-1].noteId + 1,
-    content: note.content,
-    mood: note.mood,
-    is_vent: note.is_vent
-  }
-  
-  notes.push(newNote)   //to put onto stack of user objects
-  return newNote
+  const sql = `INSERT INTO notes (content, emotion, is_vent)
+  VALUES ("${note.content}", "${note.emotion}", "${note.is_vent}" )
+  `
+
+  const insert = await con.query(sql)
+  return insert
 }
 
-function deleteNote(noteId) {
-  let i = notes.map((note) => note.noteId).indexOf(noteId);
-  notes.splice(i, 1);
-  console.log(notes)
+async function deleteNote(noteId) {
+  const sql = `DELETE FROM notes
+  WHERE noteId = ${noteId}
+  `
+  const insert = await con.query(sql)
+  return insert
 }
 
 function noteExists(noteIdTemp) {
   return users.filter((u) => u.noteId === noteIdTemp)
 }
 
-module.exports = { create, getNotes, deleteNote }
+module.exports = { displayNotes, create, getNotes, deleteNote }
