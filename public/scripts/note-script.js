@@ -13,22 +13,19 @@ from './main.js'
 //Only when I save code while LOOKING or CURRENTLY ON /public/notes, switch tab to SAVE
 display()
 
-let noteForm = document.getElementById("noteForm")
-if(noteForm) noteForm.addEventListener('submit', addNote)
 
 function displayNotes(note) {
 
   const flexNotes = document.getElementById("flex-notes")
   const contentTemp = note.content
   const moodTemp = note.mood
-  const noteId = note.noteId    //For testing delete purposes
-  //const is_ventTemp = note.is_vent
+  const noteId = note.noteId
+  // const is_ventTemp = note.is_vent
+  //    <!-- Vent?: ${is_ventTemp} -->
 
   let p = document.createElement('p')
   p.className = "note"
   p.innerHTML = `
-    ${noteId}
-    <hr>
     ${contentTemp}
     <hr>
     <br>
@@ -36,10 +33,13 @@ function displayNotes(note) {
     <br>
     <button class="button" id="deleteBtn">Delete</button>
   `
+  const btn = document.getElementById("deleteBtn")
+  if(btn) btn.addEventListener('click', deleteNote(noteId))
 
-  let btn = document.getElementById("deleteBtn")
-  if(btn) p.addEventListener('click', deleteNote(noteId))
-  p.addEventListener('click', deleteNote(noteId))
+  // p.addEventListener('click', deleteNote(noteId))
+  // p.addEventListener('click', deleteNote(noteId))
+
+  
   // if(btn) p.addEventListener('click', deleteNote())
   // p.addEventListener('click', deleteNote)
 
@@ -47,6 +47,9 @@ function displayNotes(note) {
 
   document.getElementById("note").value = ""
 }
+
+let noteForm = document.getElementById("noteForm")
+if(noteForm) noteForm.addEventListener('submit', addNote)
 
 function addNote(e) {
   e.preventDefault()
@@ -72,39 +75,41 @@ function addNote(e) {
     const errText = error.message;
     console.log(`Error! ${errText}`)
   })
+
+  window.location.href = "notes.html"
   //We could send a note object to the display() instead of repeating code
   //Just refresh here? Because of display don't want to do all this again
-  let p = document.createElement('p')
-  p.className = "note"
-  p.innerHTML = `
-    ${contentTemp}
-    <hr>
-    <br>
-    This made you feel: ${moodTemp}
-    <br>
-    <button class="button" id="deleteBtn">Delete</button>
-  `
-  let btn = document.getElementById("deleteBtn")
-  if(btn) p.addEventListener('click', deleteNote)
-  p.addEventListener('click', deleteNote)
+
+  // let p = document.createElement('p')
+  // p.className = "note"
+  // p.innerHTML = `
+  //   ${contentTemp}
+  //   <hr>
+  //   <br>
+  //   This made you feel: ${moodTemp}
+  //   <br>
+  //   <button class="button" id="deleteBtn">Delete</button>
+  // `
+  // let btn = document.getElementById("deleteBtn")
+  // if(btn) p.addEventListener('click', deleteNote)
+  // p.addEventListener('click', deleteNote)
   
 
-  // const newNote = new Note(note)
-  // console.log(newNote)
+  // // const newNote = new Note(note)
+  // // console.log(newNote)
 
-  flexNotes.appendChild(p)
+  // flexNotes.appendChild(p)
 
-  document.getElementById("note").value = ""
+  // document.getElementById("note").value = ""
 }
 
 function deleteNote(noteIdTemp) { 
   console.log("in deleteNote")
-  //Sends parameters to routes, have to use key
-  fetchData('/notes/delete', {noteId: noteIdTemp}, "DELETE")
-  .then((data) => {
+  fetchData('/notes/delete', {noteId: noteIdTemp}, "DELETE")   //Sends parameters to routes, have to use key
+  .then((data) => { 
     if(!data.message) {
       console.log(data.success)
-      //window.location.href = "notes.html"
+      window.location.href = "notes.html"
     }
   })
   .catch((error) => {
