@@ -12,20 +12,6 @@ async function createTable() {
 }
 createTable()
 
-// con.connect(function(err) {
-//   if(err) throw err
-//   let sql = `CREATE TABLE IF NOT EXISTS users (
-//     user_id INT NOT NULL AUTO_INCREMENT,
-//     user_email VARCHAR(255) NOT NULL UNIQUE,
-//     user_password VARCHAR(50),
-//     CONSTRAINT user_pk PRIMARY KEY(user_id)
-//   )`
-//   con.query(sql, function(err, result) {
-//     if(err) throw err
-
-//   })
-// })
-
 const users = [
   {
     userId: 12345,
@@ -73,35 +59,21 @@ async function getUser(user) {
   return await con.query(sql)
 }
 
-async function login(emailTemp, password) {
-  const user = userExists(emailTemp);
-  if(!user[0]) throw Error('User not found');
-  if(user[0].user_password !== password) throw Error('Password is incorrect.');
+async function login(emailTemp, passwordTemp) {
+  const user = await userExists(emailTemp)
 
-  return user[0];
+  if(!user[0]) throw Error('User not found')
+  if(user[0].password !== passwordTemp) throw Error('Password is incorrect.')
+
+  return user[0]
 }
-
-// function register(user) {
-//   const u = userExists(user.email);
-//   if(u.length>0) throw Error('Email already exists')
-
-//   const newUser = {
-//     userId: users[users.length-1].userId + 1,
-//     fName: user.fName,
-//     email: user.email,
-//     password: user.password
-//   }
-//   users.push(newUser)   //to put onto stack of user objects
-//   return newUser
-// }
-// function register(user) {
 
 async function register(user) {
   const u = userExists(user.email)
   if(u.length > 0) throw Error('Email already in use')
 
   const sql = `INSERT INTO users (email, password)
-  VALUES ( "${user.email}", "${user.password}")
+  VALUES ("${user.email}", "${user.password}")
   `
 
   const insert = await con.query(sql)
@@ -131,13 +103,9 @@ async function editUser(user) {
   return await con.query(sql)
 }
 
-// function userExists(emailTemp) {
-//   return users.filter((u) => u.email === emailTemp)
-// }
-
-async function userExists(email) {
+async function userExists(emailTemp) {
   const sql = `SELECT * FROM users
-  WHERE email = "${email}"
+  WHERE email = "${emailTemp}"
   `
   return await con.query(sql)
 }

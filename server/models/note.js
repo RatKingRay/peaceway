@@ -6,26 +6,26 @@ async function createTable() {
     content VARCHAR(255),
     emotion VARCHAR(50),
     is_vent BOOLEAN,
-    CONSTRAINT note_pk PRIMARY KEY(note_id)
+    CONSTRAINT note_pk PRIMARY KEY(noteId)
   )`
   await con.query(sql)
 }
 createTable()
 
-const notes = [
-    {
-      noteId: 12345,
-      content: "hello",
-    },
-    {
-      noteId: 55555,
-      content: "Get assigment done",
-    },
-    {
-      noteId: 34212,
-      content: "Bake pie",
-    }
-]
+// const notes = [
+//     {
+//       noteId: 12345,
+//       content: "hello",
+//     },
+//     {
+//       noteId: 55555,
+//       content: "Get assigment done",
+//     },
+//     {
+//       noteId: 34212,
+//       content: "Bake pie",
+//     }
+// ]
 
 let getNotes = async () => {
   const sql = "SELECT * FROM notes"
