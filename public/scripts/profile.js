@@ -75,6 +75,7 @@ function editAccount(e) {
   }
 }
 
+//How does it know what userId to use?
 function deleteAccount(e) {
   e.preventDefault();
 

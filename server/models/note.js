@@ -39,7 +39,6 @@ async function deleteNote(noteId) {
   WHERE noteId = ${noteId}
   `
   const insert = await con.query(sql)
-  return insert
 }
 
 function noteExists(noteIdTemp) {
