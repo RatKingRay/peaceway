@@ -23,9 +23,6 @@ async function displayNotes() {
 }
 
 async function create(note) {
-  // const n = noteExists(note.noteId);
-  // if(n.length>0) throw Error('Note already exists')
-  
   const sql = `INSERT INTO notes (content, emotion, is_vent)
   VALUES ("${note.content}", "${note.emotion}", "${note.is_vent}" )
   `
