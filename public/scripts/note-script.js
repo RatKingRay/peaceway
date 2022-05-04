@@ -32,16 +32,13 @@ function displayNotes(note) {
     This made you feel: ${moodTemp}
     <br>
     <button class="button" id="deleteBtn">Delete</button>
+    <input type="submit" value="Send Request">
   `
   const btn = document.getElementById("deleteBtn")
-  if(btn) btn.addEventListener('click', deleteNote(noteId))
 
-  // p.addEventListener('click', deleteNote(noteId))
-  // p.addEventListener('click', deleteNote(noteId))
-
-  
-  // if(btn) p.addEventListener('click', deleteNote())
-  // p.addEventListener('click', deleteNote)
+  p.addEventListener('click', function(){
+    deleteNote(noteId)
+  })
 
   flexNotes.appendChild(p)
 
