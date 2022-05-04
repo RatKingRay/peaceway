@@ -18,7 +18,7 @@ function displayNotes(note) {
 
   const flexNotes = document.getElementById("flex-notes")
   const contentTemp = note.content
-  const moodTemp = note.mood
+  const moodTemp = note.emotion
   const noteId = note.noteId
   let is_ventTemp
   if(note.is_vent === 1) {
