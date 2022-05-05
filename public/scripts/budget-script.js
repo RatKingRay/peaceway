@@ -3,7 +3,7 @@ import
 { fetchData, getCurrentUser } 
 from './main.js'
 
-weeklyLimitDisplay() // <---- This is making it so we can't save & reload without causing a crash
+// weeklyLimitDisplay() // <---- This is making it so we can't save & reload without causing a crash
 initialCreate()
 
 let budgetForm = document.getElementById("budgetForm")
@@ -33,7 +33,7 @@ function setLimit(e) {
 function initialCreate() {
   const user = getCurrentUser()
   console.log(`In InitialCreate() ${user} or ${user.userId}`)
-  
+
   fetchData('/budget/createEntry', {userId: user.userId}, "POST")
   .then((data) => {
     if(!data.message) {

@@ -1,24 +1,27 @@
 const con = require("./db_connect")
 //Need to make it so only 1 table per user
 async function createTable() {
-  let sql = `CREATE TABLE IF NOT EXISTS budget (
-    budgetId INT NOT NULL AUTO_INCREMENT,
+  const sql = `CREATE TABLE IF NOT EXISTS budget (
     userId INT NOT NULL,
-    weeklyLimit SMALLINT NOT NULL UNIQUE,
+    weeklyLimit SMALLINT NOT NULL,
     weeklyCurrent SMALLINT,
     lastWeekCarryover SMALLINT,
-    CONSTRAINT budgetPk PRIMARY KEY(budgetId)
-    
+    CONSTRAINT userPk PRIMARY KEY(userId)
   )`
+  //budgetId INT NOT NULL AUTO_INCREMENT,
+  //CONSTRAINT budgetPk PRIMARY KEY(budgetId)
   //CONSTRAINT userFk FOREIGN KEY(userId) REFERENCES users(userId)
   await con.query(sql)
+  // const sql2 = `DELETE FROM budget`
+  // await con.query(sql2)
 }
 createTable()
 
+//need to inner join to use fkeys, but NEED TO GET THEM IN FIRST!!
 async function createEntry(userId) {
   console.log(`in createEntry models ${userId}`)
-  const sql = `INSERT INTO budget (userId)
-  VALUES ( ${userId} )
+  const sql = `INSERT INTO budget (userId, weeklyLimit)
+  VALUES ( '${userId}', '0' )
   `
   //INSERT IGNORE INTO
   await con.query(sql)
