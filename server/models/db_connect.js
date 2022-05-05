@@ -32,6 +32,10 @@ con.connect(function(err) {
         if (err) throw err
         console.log(result)
     })
+    con.query("SELECT * FROM budget", function (err, result) {
+        if (err) throw err
+        console.log(result)
+    })
 })
 
 const createQuery = "CREATE DATABASE IF NOT EXISTS web_db;"

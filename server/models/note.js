@@ -6,6 +6,7 @@ async function createTable() {
     content VARCHAR(255),
     emotion VARCHAR(50),
     is_vent BOOLEAN,
+    date DATE,
     CONSTRAINT note_pk PRIMARY KEY(noteId)
   )`
   await con.query(sql)
@@ -24,7 +25,7 @@ async function displayNotes() {
 
 async function create(note) {
   const sql = `INSERT INTO notes (content, emotion, is_vent)
-  VALUES ("${note.content}", "${note.emotion}", "${note.is_vent}" )
+  VALUES ( "${note.content}", "${note.emotion}", "${note.is_vent}" )
   `
 
   const insert = await con.query(sql)

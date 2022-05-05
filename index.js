@@ -26,8 +26,6 @@ app.use("/users", userRoutes);
 app.use("/notes", noteRoutes);
 app.use("/exercise", exerciseRoutes);
 app.use("/budget", budgetRoutes);
-//app.use("/assessment", assessmentRoutes);
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}!`));

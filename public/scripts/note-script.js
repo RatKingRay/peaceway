@@ -12,7 +12,11 @@ from './main.js'
 //**** Yeah it seems to just be when I save in note-script.js something messes up
 //Only when I save code while LOOKING or CURRENTLY ON /public/notes, switch tab to SAVE
 
-display()
+
+/* We can make a date variable in the talbe that stores when created
+and when the note page loads it will read the date in and subtract 7 days
+and if the answer is 0 >= x then we wipe the note*/
+display() // <---- This is making it so we can't save & reload without causing a crash
 
 function displayNotes(note) {
 

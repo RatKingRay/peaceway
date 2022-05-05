@@ -15,7 +15,6 @@ router
     .post('/display', async (req, res) => {
         try {
         const notes = await Note.displayNotes(req.body)
-        //const notes = await Note.displayNotes();
         res.send(notes);
         } catch(err) {
           res.status(401).send({message: err.message});

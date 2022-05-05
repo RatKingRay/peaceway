@@ -23,8 +23,8 @@
     </header>
 
     <main>
-        <form class="note budget-block">
-            <p class="budget-display">Current: $0.00</p>
+        <form class="note budget-block" id="budgetForm">
+            <p class="budget-display" id="budget-display">Current: $0.00</p>
             <!-- Go into Red text when over limit -->
             <label for="weekly_budget">Enter Weekly Limit:</label><br>
             <input type="text" id="weekly_budget" name="weekly_budget" placeholder="Enter Limit"><br>
@@ -33,7 +33,6 @@
             <label for="add">Add Amount of $ Spent:</label><br>
             <input type="text" id="add" name="add" placeholder="Enter $ Amount"><br>
             <input type="submit" class="button" value="Deduct"><br>
-            
         </form>
     </main>
 
