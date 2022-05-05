@@ -17,8 +17,8 @@ let budgetForm = document.getElementById("budgetForm")
 // }
 if(budgetForm) budgetForm.addEventListener('submit', setLimit)
 
-let deductBtn = document.getElementById("deduct")
-if(deductBtn) deductBtn.addEventListener('submit', deduct)
+let addBtn = document.getElementById("deduct")
+if(addBtn) addBtn.addEventListener('submit', add)
 
 
 function setLimit(e) {
@@ -42,11 +42,23 @@ function setLimit(e) {
   document.getElementById("weekly_budget").value = ""
 }
 
-function deduct(e) {
+function add(e) {
   e.preventDefault()
-  console.log("hello in deduct function")
+  console.log("hello in add function")
+
   const user = getCurrentUser()
-  const deductTemp = document.getElementById("deduct").value  
+  const addTemp = document.getElementById("deduct").value  
+
+  fetchData('/budget/add', {userId: user.userId}, "POST")
+  .then((data) => {
+    if(!data.message) {
+      console.log("Post success")
+    }
+  })
+  .catch((error) => {
+    const errText = error.message;
+    console.log(`Error! ${errText}`)
+  })
 }
 
 function initialCreate() {

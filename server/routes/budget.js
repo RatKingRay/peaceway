@@ -25,8 +25,8 @@ router
     try {
       //console.log(req.body.userId) We're good here so far
       const budget = await Budget.display(req.body.userId);
-      console.log(budget)
-      res.send(budget)
+      // console.log({ weeklyLimit: budget })
+      res.send({ weeklyLimit: budget }) //Can only send object, so I'm sending a number as an object
     } catch(error) {
       res.status(401).send({message: error.message});
     }
@@ -37,6 +37,16 @@ router
       console.log(`In createEntry ${req.body.userId}`)
       const budget = await Budget.createEntry(req.body.userId);
       res.send({...budget, content: undefined})
+    } catch(error) {
+      res.status(401).send({message: error.message});
+    }
+  })
+
+  .post('/add', async (req, res) => {
+    try {
+      // console.log(`In add ${req.body.userId}`)
+      const budget = await Budget.add(req.body.userId);
+      res.send(budget)
     } catch(error) {
       res.status(401).send({message: error.message});
     }

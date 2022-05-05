@@ -1,10 +1,10 @@
 const con = require("./db_connect")
-//Need to make it so only 1 table per user
+
 async function createTable() {
   const sql = `CREATE TABLE IF NOT EXISTS budget (
     userId INT NOT NULL,
     weeklyLimit SMALLINT NOT NULL,
-    weeklyCurrent SMALLINT,
+    weeklyCurrent SMALLINT NOT NULL,
     lastWeekCarryover SMALLINT,
     CONSTRAINT userPk PRIMARY KEY(userId),
     CONSTRAINT userFk FOREIGN KEY(userId) REFERENCES users(userId)
@@ -18,13 +18,13 @@ async function createTable() {
 }
 createTable()
 
-//need to inner join to use fkeys, but NEED TO GET THEM IN FIRST!!
 async function createEntry(userId) {
-  console.log(`in createEntry models ${userId}`)
-  const sql = `INSERT IGNORE INTO budget (userId, weeklyLimit)
-  VALUES ( '${userId}', '0' )
+  // const sql = `DROP TABLE budget`
+  //IGNORE because we need to intially create a unique budget for each user, but one might already exist
+  const sql = `INSERT IGNORE INTO budget (userId, weeklyLimit, weeklyCurrent)
+  VALUES ( '${userId}', '0', '0')
   `
-  //INSERT IGNORE INTO
+
   await con.query(sql)
 }
 
@@ -49,14 +49,40 @@ async function update(weeklyLimit, userId) {
   return await con.query(sql)
 }
 
+async function add(weeklyCurrent, userId) {
+  const sql = `SELECT weeklyCurrent FROM budget
+  WHERE userId = ${userId}
+  `
+  const previousValue = await con.query(sql)
+  const newValue = previousValue + weeklyCurrent
+
+  const sql2 = `UPDATE budget SET
+  weeklyCurrent = ${newValue}
+  WHERE userId = ${userId}
+  `
+  const insert = await con.query(sql2)
+  //Return?
+}
+
 async function display(userId) {
   const sql = `SELECT weeklyLimit FROM budget
   WHERE userId = ${userId}
   `
-  const answer = await con.query(sql)
-  // console.log(answer)
-  // console.log(answer.weeklyLimit)
-  return answer[0]
+
+  //subtract weeklyCurrent
+  const sql2 = `SELECT weeklyCurrent FROM budget
+  WHERE userId = ${userId}
+  `
+  const weeklyCurrent = await con.query(sql2)
+  const weeklyLimit = await con.query(sql)
+
+  const tempWeek = weeklyCurrent[0]
+  const tempLimit = weeklyLimit[0]
+
+  const temp = tempLimit.weeklyLimit - tempWeek.weeklyCurrent
+
+  
+  return temp
 }
 
 //For initial creation, likely don't want/need
@@ -83,11 +109,19 @@ async function display(userId) {
 //   return budgetTable
 // }
 
-async function clear() {
-  const sql = `DELETE FROM notes
-  WHERE noteId = ${noteId}
+async function reset(userId) {
+  const sql = `DELETE FROM budget
+  WHERE userId = ${userId}
   `
   const insert = await con.query(sql)
 }
 
-module.exports = { update, clear, getBudget, display, createEntry }
+async function clear(userId) {
+  const sql = `UPDATE budget SET
+  weeklyCurrent = '0'
+  WHERE userId = ${userId}
+  `
+  const insert = await con.query(sql)
+}
+
+module.exports = { update, clear, getBudget, display, createEntry, add }
