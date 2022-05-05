@@ -6,11 +6,12 @@ async function createTable() {
     weeklyLimit SMALLINT NOT NULL,
     weeklyCurrent SMALLINT,
     lastWeekCarryover SMALLINT,
-    CONSTRAINT userPk PRIMARY KEY(userId)
+    CONSTRAINT userPk PRIMARY KEY(userId),
+    CONSTRAINT userFk FOREIGN KEY(userId) REFERENCES users(userId)
   )`
   //budgetId INT NOT NULL AUTO_INCREMENT,
   //CONSTRAINT budgetPk PRIMARY KEY(budgetId)
-  //CONSTRAINT userFk FOREIGN KEY(userId) REFERENCES users(userId)
+
   await con.query(sql)
   // const sql2 = `DELETE FROM budget`
   // await con.query(sql2)
@@ -20,7 +21,7 @@ createTable()
 //need to inner join to use fkeys, but NEED TO GET THEM IN FIRST!!
 async function createEntry(userId) {
   console.log(`in createEntry models ${userId}`)
-  const sql = `INSERT INTO budget (userId, weeklyLimit)
+  const sql = `INSERT IGNORE INTO budget (userId, weeklyLimit)
   VALUES ( '${userId}', '0' )
   `
   //INSERT IGNORE INTO
@@ -52,8 +53,10 @@ async function display(userId) {
   const sql = `SELECT weeklyLimit FROM budget
   WHERE userId = ${userId}
   `
-
-  return await con.query(sql)
+  const answer = await con.query(sql)
+  // console.log(answer)
+  // console.log(answer.weeklyLimit)
+  return answer[0]
 }
 
 //For initial creation, likely don't want/need

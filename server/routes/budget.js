@@ -25,7 +25,8 @@ router
     try {
       //console.log(req.body.userId) We're good here so far
       const budget = await Budget.display(req.body.userId);
-      res.send({...budget, content: undefined})
+      console.log(budget)
+      res.send(budget)
     } catch(error) {
       res.status(401).send({message: error.message});
     }

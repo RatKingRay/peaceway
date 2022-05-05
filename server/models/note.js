@@ -15,7 +15,7 @@ createTable()
 
 let getNotes = async () => {
   const sql = "SELECT * FROM notes"
-  return await con.query(sql)   //Have to use await and async because query is async
+  return await con.query(sql)   //Have to use await and async because query is async?
 }
 
 async function displayNotes() {

@@ -22,18 +22,21 @@ con.connect(function(err) {
     console.log("Connected")
     con.query("CREATE DATABASE IF NOT EXISTS web_db", function (err, result) {
         if (err) throw err
-        console.log("Database created")
+        console.log("Database created\n")
     })
     con.query("SELECT * FROM notes", function (err, result) {
         if (err) throw err
+        console.log('Notes table:')
         console.log(result)
     })
     con.query("SELECT * FROM users", function (err, result) {
         if (err) throw err
+        console.log('\nUsers table:')
         console.log(result)
     })
     con.query("SELECT * FROM budget", function (err, result) {
         if (err) throw err
+        console.log('\nBudget table:')
         console.log(result)
     })
 })
