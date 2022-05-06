@@ -7,18 +7,9 @@ initialCreate()
 weeklyLimitDisplay() // <---- This is making it so we can't save & reload without causing a crash
 
 
-let budgetForm = document.getElementById("budgetForm")
-// if(budgetForm) {
-//   budgetForm.addEventListener('submit', function (e) {
-//     if (e.target.classList.contains('limit')) {
-//       setLimit()
-//     }
-//   })
-// }
-if(budgetForm) budgetForm.addEventListener('submit', setLimit)
-
-let addBtn = document.getElementById("deduct")
-if(addBtn) addBtn.addEventListener('submit', add)
+document.getElementById("budgetButton").addEventListener('click', setLimit) 
+document.getElementById("addButton").addEventListener('click', add)
+document.getElementById("reset").addEventListener('click', reset)
 
 
 function setLimit(e) {
@@ -38,8 +29,8 @@ function setLimit(e) {
     console.log(`Error! ${errText}`)
   })
 
-  window.location.href = "budget.html"
   document.getElementById("weekly_budget").value = ""
+  window.location.href = "budget.html"
 }
 
 function add(e) {
@@ -47,9 +38,10 @@ function add(e) {
   console.log("hello in add function")
 
   const user = getCurrentUser()
-  const addTemp = document.getElementById("deduct").value  
+  const addTemp = document.getElementById("deduct").value
+  console.log(addTemp)
 
-  fetchData('/budget/add', {userId: user.userId}, "POST")
+  fetchData('/budget/add', {weeklyCurrent: addTemp, userId: user.userId}, "POST")
   .then((data) => {
     if(!data.message) {
       console.log("Post success")
@@ -59,6 +51,28 @@ function add(e) {
     const errText = error.message;
     console.log(`Error! ${errText}`)
   })
+
+  document.getElementById("weekly_budget").value = ""
+}
+
+function reset(e) {
+  e.preventDefault()
+  console.log("hello in reset function")
+
+  const user = getCurrentUser()
+
+  fetchData('/budget/reset', {userId: user.userId}, "POST")
+  .then((data) => {
+    if(!data.message) {
+      console.log("Post success")
+    }
+  })
+  .catch((error) => {
+    const errText = error.message;
+    console.log(`Error! ${errText}`)
+  })
+
+  window.location.href = "budget.html"
 }
 
 function initialCreate() {

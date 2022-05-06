@@ -31,30 +31,25 @@ async function createEntry(userId) {
 let getBudget = () => budget;
 
 
-// async function update() {
-//   const sql = `INSERT INTO notes (weeklyLimit, weeklyCurrent, lastWeekCarryover)
-//   VALUES ("${budget.weeklyLimit}", "${budget.weeklyCurrent}", "${budget.lastWeekCarryover}" )
-//   `
-
-//   const insert = await con.query(sql)
-//   return insert
-// }
-
 async function update(weeklyLimit, userId) {
   const sql = `UPDATE budget SET
   weeklyLimit = ${weeklyLimit}
   WHERE userId = ${userId}
   `
-  //  WHERE userId = ${user.userId}
+
   return await con.query(sql)
 }
 
-async function add(weeklyCurrent, userId) {
+async function add(newWeeklyCurrent, userId) {
   const sql = `SELECT weeklyCurrent FROM budget
   WHERE userId = ${userId}
   `
   const previousValue = await con.query(sql)
-  const newValue = previousValue + weeklyCurrent
+  console.log(typeof previousValue[0].weeklyCurrent)
+  console.log(typeof parseInt(newWeeklyCurrent))
+  let newValue = (previousValue[0].weeklyCurrent + parseInt(newWeeklyCurrent))
+  //is increasing though!
+  console.log(`Over here! ${newValue}`)
 
   const sql2 = `UPDATE budget SET
   weeklyCurrent = ${newValue}
@@ -69,7 +64,6 @@ async function display(userId) {
   WHERE userId = ${userId}
   `
 
-  //subtract weeklyCurrent
   const sql2 = `SELECT weeklyCurrent FROM budget
   WHERE userId = ${userId}
   `
@@ -110,10 +104,12 @@ async function display(userId) {
 // }
 
 async function reset(userId) {
-  const sql = `DELETE FROM budget
+  const sql = `UPDATE budget SET
+  weeklyCurrent = '0'
   WHERE userId = ${userId}
   `
-  const insert = await con.query(sql)
+
+  return await con.query(sql)
 }
 
 async function clear(userId) {

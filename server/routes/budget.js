@@ -23,9 +23,7 @@ router
 
   .post('/display', async (req, res) => {
     try {
-      //console.log(req.body.userId) We're good here so far
       const budget = await Budget.display(req.body.userId);
-      // console.log({ weeklyLimit: budget })
       res.send({ weeklyLimit: budget }) //Can only send object, so I'm sending a number as an object
     } catch(error) {
       res.status(401).send({message: error.message});
@@ -34,7 +32,6 @@ router
 
   .post('/createEntry', async (req, res) => {
     try {
-      console.log(`In createEntry ${req.body.userId}`)
       const budget = await Budget.createEntry(req.body.userId);
       res.send({...budget, content: undefined})
     } catch(error) {
@@ -44,23 +41,35 @@ router
 
   .post('/add', async (req, res) => {
     try {
-      // console.log(`In add ${req.body.userId}`)
-      const budget = await Budget.add(req.body.userId);
+      console.log(`In add ${req.body.userId}`)
+      console.log(`In add ${req.body.weeklyCurrent}`)
+      //All good^
+      //NOT GOOD NOT GOOD^
+      const budget = await Budget.add(req.body.weeklyCurrent, req.body.userId);
       res.send(budget)
     } catch(error) {
       res.status(401).send({message: error.message});
     }
   })
 
-  .delete('/clear', async (req, res) => {
+  .post('/reset', async (req, res) => {
     try {
-      console.log(req.body)
-      await Budget.clear(req.body.budgetId);
+      await Budget.clear( req.body.userId);
       res.send({success: "Cya budget!"});
     } catch(error) {
       res.status(401).send({message: error.message});
     }
   })
+
+  // .delete('/clear', async (req, res) => {
+  //   try {
+  //     console.log(req.body)
+  //     await Budget.clear(req.body.budgetId);
+  //     res.send({success: "Cya budget!"});
+  //   } catch(error) {
+  //     res.status(401).send({message: error.message});
+  //   }
+  // })
 
 module.exports = router;
 

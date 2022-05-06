@@ -25,14 +25,18 @@
     <main>
         <form class="note budget-block" id="budgetForm">
             <p class="budget-display" id="budget-display">Current: $0.00</p>
-            <!-- Go into Red text when over limit -->
+
+            <!-- Go into Red text when over limit? -->
             <label for="weekly_budget">Enter Weekly Limit:</label><br>
             <input type="text" id="weekly_budget" name="weekly_budget" placeholder="Enter Limit"><br>
-            <input type="submit" class="button" value="Submit"><br><br>
+            <button class="button" id="budgetButton">Update</button><br><br>
+            
             <!-- Deduct this from current -->
-            <label for="deduct">Add Amount of $ Spent:</label><br>
-            <input type="text" id="deduct" name="deduct" placeholder="Enter $ Amount"><br>
-            <input type="submit" class="button" id="deduct" value="Deduct"><br>
+            <label for="add">Add Amount of $ Spent:</label><br>
+            <input type="text" id="deduct" name="add" placeholder="Enter $ Amount"><br>
+            <button class="button" id="addButton">Deduct</button><br><br>
+
+            <button class="button" id="reset">New Week</button><br>
         </form>
     </main>
 
