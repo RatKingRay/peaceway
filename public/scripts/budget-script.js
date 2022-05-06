@@ -52,7 +52,7 @@ function add(e) {
     console.log(`Error! ${errText}`)
   })
 
-  document.getElementById("weekly_budget").value = ""
+  window.location.href = "budget.html"
 }
 
 function reset(e) {
