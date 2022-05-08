@@ -39,6 +39,11 @@ con.connect(function(err) {
         console.log('\nBudget table:')
         console.log(result)
     })
+    con.query("SELECT * FROM exercises", function (err, result) {
+        if (err) throw err
+        console.log('\nExercises table:')
+        console.log(result)
+    })
 })
 
 const createQuery = "CREATE DATABASE IF NOT EXISTS web_db;"

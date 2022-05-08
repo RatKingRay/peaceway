@@ -36,9 +36,9 @@ function displayNotes(note) {
   p.innerHTML = `
     ${contentTemp}
     <hr>
-    <br>
-    This made you feel: ${moodTemp}
-    <br>
+    <!-- <br>
+     This made you feel: ${moodTemp} 
+    <br> -->
     Vent?: ${is_ventTemp}
     <button class="button" id="deleteBtn">Delete</button>
   `

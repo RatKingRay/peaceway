@@ -45,8 +45,8 @@ async function add(newWeeklyCurrent, userId) {
   WHERE userId = ${userId}
   `
   const previousValue = await con.query(sql)
-  console.log(typeof previousValue[0].weeklyCurrent)
-  console.log(typeof parseInt(newWeeklyCurrent))
+  // console.log(typeof previousValue[0].weeklyCurrent)
+  // console.log(typeof parseInt(newWeeklyCurrent))
   let newValue = (previousValue[0].weeklyCurrent + parseInt(newWeeklyCurrent))
   //is increasing though!
   console.log(`Over here! ${newValue}`)

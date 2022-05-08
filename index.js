@@ -7,7 +7,6 @@ const userRoutes = require('./server/routes/user');
 const noteRoutes = require('./server/routes/note');
 const exerciseRoutes = require('./server/routes/exercise');
 const budgetRoutes = require('./server/routes/budget');
-//const assessmentRoutes = require('./server/routes/assessment');
 
 app.use(express.json()); //To parse JSON bodies (Applicable for Express 4.16+)
 

@@ -54,7 +54,7 @@ router
 
   .post('/reset', async (req, res) => {
     try {
-      await Budget.clear( req.body.userId);
+      await Budget.clear(req.body.userId);
       res.send({success: "Cya budget!"});
     } catch(error) {
       res.status(401).send({message: error.message});

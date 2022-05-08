@@ -1,63 +1,85 @@
 const con = require("./db_connect")
 
 async function createTable() {
-  let sql = `CREATE TABLE IF NOT EXISTS users (
-    user_id INT NOT NULL AUTO_INCREMENT,
-    user_email VARCHAR(255) NOT NULL UNIQUE,
-    user_fname VARCHAR(50),
-    user_password VARCHAR(50),
-    CONSTRAINT user_pk PRIMARY KEY(user_id)
+  const sql = `CREATE TABLE IF NOT EXISTS exercises (
+    exerciseId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    userId INT NOT NULL,
+    instructions VARCHAR(999),
+    exerciseMood VARCHAR(50),
+    CONSTRAINT excercieUserFk FOREIGN KEY(userId) REFERENCES users(userId)
   )`
   await con.query(sql)
 }
 createTable()
 
-const exercises = [
-    {
-      exerciseId: 24,
-      instructions: [
-          "Do some painting",
-          "Finish reading 'The Hobbit'"
-        ],
-      excercise_mood: "happy",
-      is_active: "true"
-    },
-    {
-      exerciseId: 25,
-      instructions: [
-        "Bake something fun",
-        "Call friends"
-        ],
-      excercise_mood: "sad",
-      is_active: "false"
-    },
-    {
-      exerciseId: 26,
-      instructions: [
-        "Take a break",
-        "Make an espresso"
-        ],
-      excercise_mood: "tired",
-      is_active: "false"
-    }
-]
+let getExercise = () => excercise
 
-let getExercises = async () => {
-  const sql = "SELECT * FROM notes"
-  return await con.query(sql)   //Have to use await and async because query is async
+async function createEntries(userId) {
+  // const sql = `DROP TABLE exercises`
+
+  // const sql = `DELETE FROM exercises
+  // WHERE userId = ${userId}
+  // AND exerciseMood = 'sad'
+  // `
+
+  //IGNORE because we need to intially create base exercises for each user, but they might already exist
+
+  const sqlSad = `INSERT IGNORE INTO exercises (userId, instructions, exerciseMood)
+  VALUES ('${userId}', 'sample', 'sad')
+  `
+  const sqlHap = `INSERT IGNORE INTO exercises (userId, instructions, exerciseMood)
+  VALUES ('${userId}', 'sample', 'happy')
+  `
+  const sqlAng = `INSERT IGNORE INTO exercises (userId, instructions, exerciseMood)
+  VALUES ('${userId}', 'sample', 'angry')
+  `
+  const sqlBor = `INSERT IGNORE INTO exercises (userId, instructions, exerciseMood)
+  VALUES ('${userId}', 'sample', 'bored')
+  `
+  const sqlAnx = `INSERT IGNORE INTO exercises (userId, instructions, exerciseMood)
+  VALUES ('${userId}', 'sample', 'anxious')
+  `
+
+  await con.query(sqlSad)
+  await con.query(sqlHap)
+  await con.query(sqlAng)
+  await con.query(sqlBor)
+  await con.query(sqlAnx)
 }
 
-function create(excercise) {
-  // const n = noteExists(note.noteId);
-  // if(n.length>0) throw Error('Note already exists')
-  
-  const newExcercise = {
-    exerciseId: exercises[exercises.length-1].exerciseId + 1,
-    instructions: exercise.instructions,
-    excercise_mood: exercise.excercise_mood,
-    is_active: exercise.is_active
-  }
-  
-  exercises.push(newExcercise)   //to put onto stack of user objects
-  return newExcercise
+async function setInstructions(instructions, userId) {
+  //Gonna have to concatenate strings with previous instructions and add in that <li> stuff
+  const sql = `UPDATE exercises SET
+  weeklyLimit = ${instructions}
+  WHERE userId = ${userId}
+  AND exerciseMood = 'sad'
+  `
+
+  return await con.query(sql)
 }
+
+// const exercises = [
+//     {
+//       exerciseId: 24,
+//       instructions: [
+//           "Do some painting",
+//           "Finish reading 'The Hobbit'"
+//         ],
+//       exercise_mood: "happy",
+//       is_active: "true"
+//     },
+// ]
+
+//Staple onto list w/ added html like <li> and stuff
+
+// let getExercises = async () => {
+//   const sql = "SELECT * FROM notes"
+//   return await con.query(sql)   //Have to use await and async because query is async
+// }
+
+function create(exercise) {
+
+  
+}
+
+module.exports = { getExercise, setInstructions, createEntries }

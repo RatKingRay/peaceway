@@ -27,13 +27,14 @@
 
             <div class="note" id="currentEmotion">
                 <p>What are you feeling?</p>
-                <select name="current-emotion" id="current-emotion">
+                <select name="emotionSelector" id="emotionSelector">
                     <option value="sad">Sad</option>
                     <option value="happy">Happy</option>
                     <option value="angry">Angry</option>
                     <option value="bored">Bored</option>
                     <option value="anxious">Anxious</option>
                 </select><br>
+                <p id="instructionDisplay"></p>
             </div>
 
             <form class="note">
@@ -49,7 +50,7 @@
                     <option value="anxious">Anxious</option>
                 </select><br>
                 <!--Submit button-->
-                <input type="submit" class="button" value="Create"><br>
+                <button class="button" id="instructionButton">Create</button><br>
             </form>
 
         </div>
@@ -59,6 +60,7 @@
         Raymond Lee<br> All rights reserved 2022 &reg;
     </footer>
 
+    <script type="module" src="scripts/excercise-script.js"></script>
     <script type="module" src="scripts/main.js"></script>
 </body>
 </html>
