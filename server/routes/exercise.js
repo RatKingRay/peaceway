@@ -21,11 +21,21 @@ router
     }
   })
   
+  .post('/display', async (req, res) => {
+    try {
+    const exercise = await Exercise.createEntries(req.body.mood, req.body.userId);
+    res.send({exercise})
+    } catch(error) {
+    res.status(401).send({message: error.message});
+    }
+  })
+  
   .post('/setInstructions', async (req, res) => {
     try {
+      console.log(req.body.instructionMood)
       console.log(req.body.instructions)
       console.log(req.body.userId)
-      const exercise = await Exercise.setInstructions(req.body.instructions, req.body.userId);
+      const exercise = await Exercise.setInstructions(req.body.instructionMood, req.body.instructions, req.body.userId);
       res.send({...exercise, content: undefined})
     } catch(error) {
     res.status(401).send({message: error.message});

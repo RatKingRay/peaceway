@@ -2,12 +2,13 @@ const con = require("./db_connect")
 
 async function createTable() {
   const sql = `CREATE TABLE IF NOT EXISTS exercises (
-    exerciseId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     userId INT NOT NULL,
     instructions VARCHAR(999),
     exerciseMood VARCHAR(50),
     CONSTRAINT excercieUserFk FOREIGN KEY(userId) REFERENCES users(userId)
   )`
+  //  CONSTRAINT excercieUserPk PRIMARY KEY(userId),
+  //    exerciseId INT NOT NULL AUTO_INCRETMENT PRIMARY KEY,
   await con.query(sql)
 }
 createTable()
@@ -15,7 +16,8 @@ createTable()
 let getExercise = () => excercise
 
 async function createEntries(userId) {
-  // const sql = `DROP TABLE exercises`
+  // const sqlSad = `DROP TABLE exercises`
+  // await con.query(sql)
 
   // const sql = `DELETE FROM exercises
   // WHERE userId = ${userId}
@@ -24,20 +26,58 @@ async function createEntries(userId) {
 
   //IGNORE because we need to intially create base exercises for each user, but they might already exist
 
-  const sqlSad = `INSERT IGNORE INTO exercises (userId, instructions, exerciseMood)
-  VALUES ('${userId}', 'sample', 'sad')
+
+
+  // const sqlSad = `IF EXISTS (SELECT * FROM exercises WHERE exerciseMood = 'sad')
+  //   INSERT INTO exercises (userId, instructions, exerciseMood)
+  //   VALUES ('${userId}', 'sample', 'sad')
+  // ELSE
+  //   INSERT INTO exercises (userId, instructions, exerciseMood)
+  //   VALUES ('${userId}', 'sample', 'sad')
+  // `
+
+  // const sqlSad = `INSERT INTO exercises (userId, instructions, exerciseMood)
+  // VALUES ('${userId}', 'sample', 'sad')
+  // WHERE NOT EXISTS (
+  //   SELECT exerciseMood FROM exercises WHERE exerciseMood = 'sad'
+  // )
+  // `
+
+
+  const sqlSad = `INSERT INTO exercises (userId, instructions, exerciseMood) 
+    SELECT '${userId}', 'sample', 'sad'
+    WHERE NOT EXISTS 
+      (SELECT exerciseMood 
+       FROM exercises 
+       WHERE exerciseMood = 'sad')
   `
-  const sqlHap = `INSERT IGNORE INTO exercises (userId, instructions, exerciseMood)
-  VALUES ('${userId}', 'sample', 'happy')
+  const sqlHap = `INSERT INTO exercises (userId, instructions, exerciseMood) 
+  SELECT '${userId}', 'sample', 'happy'
+  WHERE NOT EXISTS 
+    (SELECT exerciseMood 
+     FROM exercises 
+     WHERE exerciseMood = 'happy')
   `
-  const sqlAng = `INSERT IGNORE INTO exercises (userId, instructions, exerciseMood)
-  VALUES ('${userId}', 'sample', 'angry')
+  const sqlAng = `INSERT INTO exercises (userId, instructions, exerciseMood) 
+  SELECT '${userId}', 'sample', 'angry'
+  WHERE NOT EXISTS 
+    (SELECT exerciseMood 
+     FROM exercises 
+     WHERE exerciseMood = 'angry')
   `
-  const sqlBor = `INSERT IGNORE INTO exercises (userId, instructions, exerciseMood)
-  VALUES ('${userId}', 'sample', 'bored')
+  const sqlBor = `INSERT INTO exercises (userId, instructions, exerciseMood) 
+  SELECT '${userId}', 'sample', 'bored'
+  WHERE NOT EXISTS 
+    (SELECT exerciseMood 
+     FROM exercises 
+     WHERE exerciseMood = 'bored')
   `
-  const sqlAnx = `INSERT IGNORE INTO exercises (userId, instructions, exerciseMood)
-  VALUES ('${userId}', 'sample', 'anxious')
+  const sqlAnx = `INSERT INTO exercises (userId, instructions, exerciseMood) 
+  SELECT '${userId}', 'sample', 'anxious'
+  WHERE NOT EXISTS 
+    (SELECT exerciseMood 
+     FROM exercises 
+     WHERE exerciseMood = 'anxious')
   `
 
   await con.query(sqlSad)
@@ -47,17 +87,24 @@ async function createEntries(userId) {
   await con.query(sqlAnx)
 }
 
-async function setInstructions(instructions, userId) {
+async function setInstructions(instructionMood, instructions, userId) {
   //Gonna have to concatenate strings with previous instructions and add in that <li> stuff
   const sql = `UPDATE exercises SET
-  weeklyLimit = ${instructions}
+  instructions = ${instructions}
   WHERE userId = ${userId}
-  AND exerciseMood = 'sad'
+  AND exerciseMood = ${instructionMood}
   `
 
   return await con.query(sql)
 }
 
+async function display(mood, userId) {
+  const sql = `SELECT instructions FROM notes
+  WHERE userId = ${userId}
+  AND exerciseMood = ${mood}
+  `
+  return await con.query(sql)
+}
 // const exercises = [
 //     {
 //       exerciseId: 24,

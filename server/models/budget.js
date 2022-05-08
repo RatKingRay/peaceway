@@ -11,6 +11,7 @@ async function createTable() {
   )`
   //budgetId INT NOT NULL AUTO_INCREMENT,
   //CONSTRAINT budgetPk PRIMARY KEY(budgetId)
+  //change fk name
 
   await con.query(sql)
   // const sql2 = `DELETE FROM budget`
