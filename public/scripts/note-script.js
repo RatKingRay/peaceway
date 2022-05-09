@@ -1,28 +1,21 @@
 
 import 
-{ fetchData } 
+{ fetchData, getCurrentUser } 
 from './main.js'
 
 //Have to make code to wipe is_vent notes
-//When reloading the page the sql connection seems to crash, or maybe just window href?
-//Everytime I save it reloads and crashes, nodemon
-//Have to close LiveServer and open again to fix
-//But seems it's just a problem w/ my note files & saving in them. Display() to blame?
-
-//**** Yeah it seems to just be when I save in note-script.js something messes up
-//Only when I save code while LOOKING or CURRENTLY ON /public/notes, switch tab to SAVE
-
-
 /* We can make a date variable in the talbe that stores when created
 and when the note page loads it will read the date in and subtract 7 days
 and if the answer is 0 >= x then we wipe the note*/
-display() // <---- This is making it so we can't save & reload without causing a crash
+
+display()
+
+document.getElementById("noteForm").addEventListener('submit', addNote)
 
 function displayNotes(note) {
 
   const flexNotes = document.getElementById("flex-notes")
   const contentTemp = note.content
-  const moodTemp = note.emotion
   const noteId = note.noteId
   let is_ventTemp
   if(note.is_vent === 1) {
@@ -36,9 +29,6 @@ function displayNotes(note) {
   p.innerHTML = `
     ${contentTemp}
     <hr>
-    <!-- <br>
-     This made you feel: ${moodTemp} 
-    <br> -->
     Vent?: ${is_ventTemp}
     <button class="button" id="deleteBtn">Delete</button>
   `
@@ -54,16 +44,11 @@ function displayNotes(note) {
   document.getElementById("note").value = ""
 }
 
-let noteForm = document.getElementById("noteForm")
-if(noteForm) noteForm.addEventListener('submit', addNote)
-
 function addNote(e) {
   e.preventDefault()
 
+  const user = getCurrentUser()
   const contentTemp = document.getElementById("note").value
-  const moodTemp = document.getElementById("emotion").value
-  console.log(document.getElementById("emotion").value)
-  console.log(moodTemp)
   let is_ventTemp
   if(document.getElementById("is_vent").checked) {
     is_ventTemp = 1
@@ -71,7 +56,7 @@ function addNote(e) {
     is_ventTemp = 0
   }
 
-  fetchData('/notes/create', {content: contentTemp, emotion: moodTemp, is_vent: is_ventTemp}, "POST")
+  fetchData('/notes/create', {userId: user.userId, content: contentTemp, is_vent: is_ventTemp}, "POST")
   .then((data) => {
     if(!data.message) {
       console.log(data)
@@ -86,7 +71,6 @@ function addNote(e) {
 }
 
 function deleteNote(noteIdTemp) { 
-  console.log("in deleteNote")
   fetchData('/notes/delete', {noteId: noteIdTemp}, "DELETE")   //Sends parameters to routes, have to use key
   .then((data) => { 
     if(!data.message) {
@@ -101,7 +85,9 @@ function deleteNote(noteIdTemp) {
 }
 
 function display() {
-  fetchData('/notes/display', {}, "POST")
+  const user = getCurrentUser()
+
+  fetchData('/notes/display', {userId: user.userId}, "POST")
   .then((data) => {
     if(!data.message) {
       console.log(data.success)

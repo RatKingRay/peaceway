@@ -110,7 +110,7 @@ input:focus {
 
     cursor: pointer;
 
-    float: left;
+    float: center;
 }
 
 /* Footer */
@@ -145,11 +145,29 @@ footer {
 }
 
 .budget-block input {
-    margin: 10px auto;
+    margin: 15px auto;
     justify-content: center;
     align-content: center;
 }
 
+/* Exercises */
+.exercise-block {
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.exercise-block-child1 {
+    width: 500px;
+    height: 500px;
+    text-align: center;
+    line-height: 25px;
+}
+
+#instructionDisplay {
+    text-align: left !important;
+}
 
 /* Misc */
 .current-emotion {

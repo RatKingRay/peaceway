@@ -14,7 +14,7 @@ router
 
     .post('/display', async (req, res) => {
         try {
-        const notes = await Note.displayNotes(req.body)
+        const notes = await Note.displayNotes(req.body.userId)
         res.send(notes);
         } catch(err) {
           res.status(401).send({message: err.message});
@@ -24,7 +24,7 @@ router
     .post('/create', async (req, res) => {
         try {
         const note = await Note.create(req.body);
-        res.send({...note, content: undefined})
+        res.send({note})
         } catch(error) {
         res.status(401).send({message: error.message});
         }

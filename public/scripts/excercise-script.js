@@ -4,7 +4,8 @@ import
 from './main.js'
 
 initialCreate()
-// document.getElementById("budgetButton").addEventListener('click', setLimit) 
+
+
 document.getElementById('emotionSelector').addEventListener('change', display)
 document.getElementById('instructionButton').addEventListener('click', setInstructions)
 document.getElementById('displayButton').addEventListener('click', clear)

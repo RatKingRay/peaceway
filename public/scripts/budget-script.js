@@ -4,7 +4,7 @@ import
 from './main.js'
 
 initialCreate()
-weeklyLimitDisplay() // <---- This is making it so we can't save & reload without causing a crash
+weeklyLimitDisplay()
 
 
 document.getElementById("budgetButton").addEventListener('click', setLimit) 
