@@ -89,24 +89,36 @@ async function createEntries(userId) {
 
 async function setInstructions(instructionMood, instructions, userId) {
   //Gonna have to concatenate strings with previous instructions and add in that <li> stuff
-  const sql = `UPDATE exercises SET
-  instructions = ${instructions}
-  WHERE userId = ${userId}
-  AND exerciseMood = ${instructionMood}
-  `
 
+  // const sql2 = `SELECT instructions FROM exercises
+  // WHERE userId = ${userId}
+  // AND exerciseMood = '${instructionMood}'
+  // `
+  // const insert = await con.query(sql2)
+  // let prevInstru = insert[0].instructions
+  // console.log(prevInstru)
+  // prevInstru.concat(instructions)
+
+
+
+  const sql = `UPDATE exercises SET
+  instructions = '${instructions}'
+  WHERE userId = ${userId}
+  AND exerciseMood = '${instructionMood}'
+  `
+  //Add <br> and previous instructions to string
   return await con.query(sql)
 }
 
 async function display(mood, userId) {
-  console.log(mood)
-  console.log(userId)
   const sql = `SELECT instructions FROM exercises
   WHERE userId = ${userId}
   AND exerciseMood = '${mood}'
   `
+
   const insert = await con.query(sql)
-  console.log(insert)
+  console.log(insert[0].instructions)
+
   return insert[0]
 }
 
