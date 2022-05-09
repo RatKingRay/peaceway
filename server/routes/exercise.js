@@ -24,7 +24,6 @@ router
   .post('/display', async (req, res) => {
     try {
     const exercise = await Exercise.display(req.body.mood, req.body.userId)
-    console.log(`in routes display: ${exercise.instructions}`)
     res.send({instructions: exercise.instructions})
     } catch(error) {
     res.status(401).send({message: error.message});
@@ -33,11 +32,17 @@ router
   
   .post('/setInstructions', async (req, res) => {
     try {
-      console.log(req.body.instructionMood)
-      console.log(req.body.instructions)
-      console.log(req.body.userId)
       const exercise = await Exercise.setInstructions(req.body.instructionMood, req.body.instructions, req.body.userId);
-      res.send({...exercise, content: undefined})
+      res.send({exercise})
+    } catch(error) {
+    res.status(401).send({message: error.message});
+    }
+  })
+
+  .post('/clear', async (req, res) => {
+    try {
+      await Exercise.clear(req.body.instructionMood, req.body.userId);
+      res.send({success: "Cya Exercise!"})
     } catch(error) {
     res.status(401).send({message: error.message});
     }

@@ -35,7 +35,11 @@
                     <option value="bored">Bored</option>
                     <option value="anxious">Anxious</option>
                 </select><br>
-                <p id="instructionDisplay"></p>
+                <p>
+                    <ul id="instructionDisplay">
+                    </ul>
+                    <button class="button" id="displayButton">Clear</button><br>
+                </p>
             </div>
 
             <form class="note">
@@ -43,13 +47,13 @@
                 <label for="instruction">Add instructions:</label><br>
                 <input type="text" id="instruction" name="instruction" placeholder="Enter an instruction"><br>
                 <label for="emotion">For what emotion?:</label><br>
-                <select name="instructionSelector" id="instructionSelector">
+                <!-- <select name="instructionSelector" id="instructionSelector">
                     <option value="sad">Sad</option>
                     <option value="happy">Happy</option>
                     <option value="angry">Angry</option>
                     <option value="bored">Bored</option>
                     <option value="anxious">Anxious</option>
-                </select><br>
+                </select><br> -->
                 <!--Submit button-->
                 <button class="button" id="instructionButton">Create</button><br>
             </form>

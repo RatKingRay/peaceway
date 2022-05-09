@@ -7,6 +7,7 @@ initialCreate()
 // document.getElementById("budgetButton").addEventListener('click', setLimit) 
 document.getElementById('emotionSelector').addEventListener('change', display)
 document.getElementById('instructionButton').addEventListener('click', setInstructions)
+document.getElementById('displayButton').addEventListener('click', clear)
 
 
 function initialCreate() {
@@ -50,7 +51,7 @@ function setInstructions() {
 
   const user = getCurrentUser()
   const instruTemp = document.getElementById("instruction").value
-  const instruEmoTemp = document.getElementById("instructionSelector").value
+  const instruEmoTemp = document.getElementById("emotionSelector").value
   console.log(instruTemp)
   console.log(instruEmoTemp)
 
@@ -68,24 +69,21 @@ function setInstructions() {
   window.location.href = "exercise.html"
 }
 
-// function reset(e) {
-//   e.preventDefault()
-//   console.log("hello in reset function")
+function clear() {
 
-//   const user = getCurrentUser()
+  const user = getCurrentUser()
+  const instruEmoTemp = document.getElementById("emotionSelector").value
 
-//   fetchData('/budget/reset', {userId: user.userId}, "POST")
-//   .then((data) => {
-//     if(!data.message) {
-//       console.log("Post success")
-//     }
-//   })
-//   .catch((error) => {
-//     const errText = error.message;
-//     console.log(`Error! ${errText}`)
-//   })
+  fetchData('/exercise/clear', {instructionMood: instruEmoTemp, userId: user.userId}, "POST")
+  .then((data) => {
+    if(!data.message) {
+      console.log("Post success")
+    }
+  })
+  .catch((error) => {
+    const errText = error.message;
+    console.log(`Error! ${errText}`)
+  })
 
-//   window.location.href = "budget.html"
-// }
-
-//Make code to update the limit by subtracting last week & updating last week with this week
+  // window.location.href = "exercise.html"
+}
