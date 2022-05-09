@@ -13,6 +13,7 @@ async function createTable() {
 }
 createTable()
 
+//Have to make it so we check for userId
 let getNotes = async () => {
   const sql = "SELECT * FROM notes"
   return await con.query(sql)   //Have to use await and async because query is async?

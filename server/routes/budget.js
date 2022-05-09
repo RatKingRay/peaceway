@@ -41,10 +41,6 @@ router
 
   .post('/add', async (req, res) => {
     try {
-      console.log(`In add ${req.body.userId}`)
-      console.log(`In add ${req.body.weeklyCurrent}`)
-      //All good^
-      //NOT GOOD NOT GOOD^
       const budget = await Budget.add(req.body.weeklyCurrent, req.body.userId);
       res.send(budget)
     } catch(error) {

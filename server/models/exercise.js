@@ -99,12 +99,17 @@ async function setInstructions(instructionMood, instructions, userId) {
 }
 
 async function display(mood, userId) {
-  const sql = `SELECT instructions FROM notes
+  console.log(mood)
+  console.log(userId)
+  const sql = `SELECT instructions FROM exercises
   WHERE userId = ${userId}
-  AND exerciseMood = ${mood}
+  AND exerciseMood = '${mood}'
   `
-  return await con.query(sql)
+  const insert = await con.query(sql)
+  console.log(insert)
+  return insert[0]
 }
+
 // const exercises = [
 //     {
 //       exerciseId: 24,
@@ -129,4 +134,4 @@ function create(exercise) {
   
 }
 
-module.exports = { getExercise, setInstructions, createEntries }
+module.exports = { getExercise, setInstructions, createEntries, display }

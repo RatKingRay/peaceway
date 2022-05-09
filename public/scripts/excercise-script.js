@@ -28,15 +28,15 @@ function initialCreate() {
 function display() {
 
   const user = getCurrentUser()
-  const moodTemp = document.getElementById("emotionSelector")
+  const moodTemp = document.getElementById("emotionSelector").value
   const instruDisplay = document.getElementById("instructionDisplay")
+  console.log('in display script')
 
   fetchData('/exercise/display', {mood: moodTemp, userId: user.userId}, "POST")
   .then((data) => {
     if(!data.message) {
-      console.log(data)
       console.log(data.instructions)
-      instruDisplay.innerHTML = data
+      instruDisplay.innerHTML = data.instructions
     }
   })
   .catch((error) => {

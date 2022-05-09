@@ -23,8 +23,9 @@ router
   
   .post('/display', async (req, res) => {
     try {
-    const exercise = await Exercise.createEntries(req.body.mood, req.body.userId);
-    res.send({exercise})
+    const exercise = await Exercise.display(req.body.mood, req.body.userId)
+    console.log(`in routes display: ${exercise.instructions}`)
+    res.send({instructions: exercise.instructions})
     } catch(error) {
     res.status(401).send({message: error.message});
     }
