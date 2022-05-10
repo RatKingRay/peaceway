@@ -30,7 +30,7 @@ router
     }
   })
   
-  .post('/setInstructions', async (req, res) => {
+  .put('/setInstructions', async (req, res) => {
     try {
       const exercise = await Exercise.setInstructions(req.body.instructionMood, req.body.instructions, req.body.userId);
       res.send({exercise})
@@ -39,7 +39,7 @@ router
     }
   })
 
-  .post('/clear', async (req, res) => {
+  .delete('/clear', async (req, res) => {
     try {
       await Exercise.clear(req.body.instructionMood, req.body.userId);
       res.send({success: "Cya Exercise!"})

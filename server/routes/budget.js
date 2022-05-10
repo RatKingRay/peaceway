@@ -12,7 +12,7 @@ router
     }
   })
 
-  .post('/update', async (req, res) => {
+  .put('/update', async (req, res) => {
     try {
     const budget = await Budget.update(req.body.weeklyLimit, req.body.userId);
     res.send({...budget, content: undefined})
@@ -48,7 +48,7 @@ router
     }
   })
 
-  .post('/reset', async (req, res) => {
+  .delete('/reset', async (req, res) => {
     try {
       await Budget.clear(req.body.userId);
       res.send({success: "Cya budget!"});
@@ -56,16 +56,6 @@ router
       res.status(401).send({message: error.message});
     }
   })
-
-  // .delete('/clear', async (req, res) => {
-  //   try {
-  //     console.log(req.body)
-  //     await Budget.clear(req.body.budgetId);
-  //     res.send({success: "Cya budget!"});
-  //   } catch(error) {
-  //     res.status(401).send({message: error.message});
-  //   }
-  // })
 
 module.exports = router;
 

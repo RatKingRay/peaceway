@@ -73,20 +73,6 @@ function addNote(e) {
   window.location.href = "notes.html"
 }
 
-function deleteNote(noteIdTemp) { 
-  fetchData('/notes/delete', {noteId: noteIdTemp}, "DELETE")   //Sends parameters to routes, have to use key
-  .then((data) => { 
-    if(!data.message) {
-      console.log(data.success)
-      window.location.href = "notes.html"
-    }
-  })
-  .catch((error) => {
-    const errText = error.message 
-    console.log(`Error! ${errText}`)
-  })
-}
-
 function display() {
   const user = getCurrentUser()
 
@@ -95,6 +81,20 @@ function display() {
     if(!data.message) {
       console.log(data.success)
       data.forEach(note => displayNotes(note))
+    }
+  })
+  .catch((error) => {
+    const errText = error.message 
+    console.log(`Error! ${errText}`)
+  })
+}
+
+function deleteNote(noteIdTemp) { 
+  fetchData('/notes/delete', {noteId: noteIdTemp}, "DELETE")   //Sends parameters to routes, have to use key
+  .then((data) => { 
+    if(!data.message) {
+      console.log(data.success)
+      window.location.href = "notes.html"
     }
   })
   .catch((error) => {

@@ -8,6 +8,7 @@ if(loginForm) loginForm.addEventListener('submit', login);
 const regForm = document.getElementById("registerForm");
 if(regForm) regForm.addEventListener('submit', register);
 
+
 function login(e) {
   e.preventDefault();
 
@@ -33,8 +34,11 @@ function register(e) {
 
   const emailTemp = document.getElementById("email").value;
   const pswd = document.getElementById("pswd").value;
+  const fNameTemp = document.getElementById("fName").value;
+  const lNameTemp = document.getElementById("lName").value;
+  const bDayTemp = document.getElementById("bDay").value;
 
-  fetchData('/users/register', {email: emailTemp, password: pswd}, "POST")
+  fetchData('/users/register', {email: emailTemp, password: pswd, fName: fNameTemp, lName: lNameTemp, bDay: bDayTemp}, "POST")
   .then((data) => {
     if(!data.message) {
       setCurrentUser(data);

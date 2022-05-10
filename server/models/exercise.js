@@ -7,8 +7,6 @@ async function createTable() {
     exerciseMood VARCHAR(50),
     CONSTRAINT excercieUserFk FOREIGN KEY(userId) REFERENCES users(userId)
   )`
-  //  CONSTRAINT excercieUserPk PRIMARY KEY(userId),
-  //    exerciseId INT NOT NULL AUTO_INCRETMENT PRIMARY KEY,
   await con.query(sql)
 }
 createTable()
@@ -16,15 +14,6 @@ createTable()
 let getExercise = () => excercise
 
 async function createEntries(userId) {
-  // const sqlSad = `DROP TABLE exercises`
-  // await con.query(sqlSad)
-
-  // const sql = `DELETE FROM exercises
-  // WHERE userId = ${userId}
-  // AND exerciseMood = 'sad'
-  // `
-
-  //Maybe add a <br> here
   const sqlSad = `INSERT INTO exercises (userId, instructions, exerciseMood) 
     SELECT '${userId}', 'Enter instructions!', 'sad'
     WHERE NOT EXISTS 

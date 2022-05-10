@@ -33,8 +33,16 @@ router
 
   .put('/edit', async (req, res) => {
     try {
-      //console.log(req.body)
       const user = await User.editUser(req.body);
+      res.send({...user, password: undefined})
+    } catch(error) {
+      res.status(401).send({message: error.message});
+    }
+  })
+
+  .put('/editPass', async (req, res) => {
+    try {
+      const user = await User.editUserPass(req.body);
       res.send({...user, password: undefined})
     } catch(error) {
       res.status(401).send({message: error.message});

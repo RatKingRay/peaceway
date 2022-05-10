@@ -9,18 +9,11 @@ async function createTable() {
     CONSTRAINT userPk PRIMARY KEY(userId),
     CONSTRAINT userFk FOREIGN KEY(userId) REFERENCES users(userId)
   )`
-  //budgetId INT NOT NULL AUTO_INCREMENT,
-  //CONSTRAINT budgetPk PRIMARY KEY(budgetId)
-  //change fk name
-
   await con.query(sql)
-  // const sql2 = `DELETE FROM budget`
-  // await con.query(sql2)
 }
 createTable()
 
 async function createEntry(userId) {
-  // const sql = `DROP TABLE budget`
   //IGNORE because we need to intially create a unique budget for each user, but one might already exist
   const sql = `INSERT IGNORE INTO budget (userId, weeklyLimit, weeklyCurrent)
   VALUES ( '${userId}', '0', '0')

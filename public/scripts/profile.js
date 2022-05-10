@@ -22,7 +22,6 @@ document.getElementById("edit").addEventListener('click', editProfile)
 document.getElementById("delete").addEventListener('click', deleteAccount) 
 
 function editProfile() {
-  // profile.classList.toggle("hide") 
   let editForm = document.getElementById("editForm") 
   editForm.classList.toggle("hide") 
   editForm.innerHTML = `
@@ -31,7 +30,7 @@ function editProfile() {
       <label for="emailInput">Change Email</label>
       <input type="text" name="emailInput" id="emailInput" placeholder="${user.email}">
       <br>
-      <input type="submit" id="edit" class="button" value="Submit">
+      <button class="button" id="submitEmail">Submit</button>
     </form>
 
     <form class="basic-form" id="passForm">
@@ -39,20 +38,20 @@ function editProfile() {
       <label for="pswd">Change Password</label>
       <input type="password" name="pswd" id="pswd">
       <br>
-      <input type="submit" class="button" value="Submit">
+      <button class="button" id="submitPass">Submit</button>
     </form>
-    <!-- <button class="button" id="cancel">Cancel</button> -->
   `
-  editForm.addEventListener('submit', editAccount)
-  // document.getElementById("cancel").addEventListener('click', (e) => {
-  //   window.location.href = "profile.html" 
-  // })
+  submitEmail.addEventListener('click', editAccount)
+  submitPass.addEventListener('click', editAccountPass)
+  // <input type="submit" class="button" value="Submit">
 }
 
 function editAccount(e) {
   e.preventDefault();
+  console.log("Hello")
 
-  const emailTemp = document.getElementById("emailInput").value
+  let emailTemp = document.getElementById("emailInput").value
+
   if(emailTemp === user.email) {
     let err = "No changes made"
     document.querySelector("#editForm p.error").innerHTML = err
@@ -72,6 +71,26 @@ function editAccount(e) {
       console.log(`Error! ${errText}`)
     }) 
   }
+}
+
+function editAccountPass(e) {
+  e.preventDefault();
+
+  let passwordTemp = document.getElementById("pswd").value
+
+  fetchData('/users/editPass', {userId: user.userId, password: passwordTemp}, "PUT")
+  .then((data) => {
+    if(!data.message) {
+      removeCurrentUser()
+      setCurrentUser(data)
+      window.location.href = "profile.html"
+    }
+  })
+  .catch((error) => {
+    const errText = error.message 
+    document.querySelector("#editForm p.error").innerHTML = errText 
+    console.log(`Error! ${errText}`)
+  }) 
 }
 
 function deleteAccount(e) {

@@ -53,7 +53,7 @@ a:hover {
 body {
     background-image: url("/images/mountain1.jpg");
     background-size: cover;
-    /* background-color: rgba(177, 226, 255, 0.616); */
+    background-repeat: no-repeat;
 }
 
 /* Notes */
@@ -72,7 +72,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 18px;
 
-    width: 10%;
+    width: fit-content;
     height: max-content;
     padding: 25px;
     margin: 10px;
@@ -169,6 +169,10 @@ footer {
 
 #instructionDisplay {
     text-align: left !important;
+}
+
+#noteForm {
+    justify-content: left !important;
 }
 
 /* Misc */

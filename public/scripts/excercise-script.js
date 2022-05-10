@@ -16,7 +16,6 @@ document.getElementById('displayButton').addEventListener('click', clear)
 
 function initialCreate() {
   const user = getCurrentUser()
-  console.log(`In InitialCreate() ${user.userId}`)
 
   fetchData('/exercise/create', {userId: user.userId}, "POST")
   .then((data) => {
@@ -35,7 +34,6 @@ function display() {
   const user = getCurrentUser()
   const moodTemp = document.getElementById("emotionSelector").value
   const instruDisplay = document.getElementById("instructionDisplay")
-  console.log('in display script')
 
   fetchData('/exercise/display', {mood: moodTemp, userId: user.userId}, "POST")
   .then((data) => {
@@ -56,10 +54,8 @@ function setInstructions() {
   const user = getCurrentUser()
   const instruTemp = document.getElementById("instruction").value
   const instruEmoTemp = document.getElementById("emotionSelector").value
-  console.log(instruTemp)
-  console.log(instruEmoTemp)
 
-  fetchData('/exercise/setInstructions', {instructionMood: instruEmoTemp, instructions: instruTemp, userId: user.userId}, "POST")
+  fetchData('/exercise/setInstructions', {instructionMood: instruEmoTemp, instructions: instruTemp, userId: user.userId}, "PUT")
   .then((data) => {
     if(!data.message) {
       console.log("Post success")
@@ -78,7 +74,7 @@ function clear() {
   const user = getCurrentUser()
   const instruEmoTemp = document.getElementById("emotionSelector").value
 
-  fetchData('/exercise/clear', {instructionMood: instruEmoTemp, userId: user.userId}, "POST")
+  fetchData('/exercise/clear', {instructionMood: instruEmoTemp, userId: user.userId}, "DELETE")
   .then((data) => {
     if(!data.message) {
       console.log("Post success")

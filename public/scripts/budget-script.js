@@ -21,7 +21,7 @@ function setLimit(e) {
   const user = getCurrentUser()
   const budgetTemp = document.getElementById("weekly_budget").value
 
-  fetchData('/budget/update', {weeklyLimit: budgetTemp, userId: user.userId}, "POST")
+  fetchData('/budget/update', {weeklyLimit: budgetTemp, userId: user.userId}, "PUT")
   .then((data) => {
     if(!data.message) {
       console.log("Post success")
@@ -64,7 +64,7 @@ function reset(e) {
 
   const user = getCurrentUser()
 
-  fetchData('/budget/reset', {userId: user.userId}, "POST")
+  fetchData('/budget/reset', {userId: user.userId}, "DELETE")
   .then((data) => {
     if(!data.message) {
       console.log("Post success")
@@ -114,5 +114,3 @@ function weeklyLimitDisplay() {
   })
 
 }
-
-//Make code to update the limit by subtracting last week & updating last week with this week

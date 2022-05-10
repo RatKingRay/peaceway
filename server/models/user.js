@@ -4,8 +4,10 @@ async function createTable() {
   let sql = `CREATE TABLE IF NOT EXISTS users (
     userId INT NOT NULL AUTO_INCREMENT,
     email VARCHAR(255) NOT NULL UNIQUE,
-    fName VARCHAR(50),
     password VARCHAR(50) NOT NULL,
+    fName VARCHAR(50),
+    lName VARCHAR(50),
+    bDay DATE,
     CONSTRAINT user_pk PRIMARY KEY(userId)
   )`
   await con.query(sql)
@@ -16,14 +18,6 @@ let getUsers = async () => {
   const sql = "SELECT * FROM users"
   return await con.query(sql)   //Have to use await and async because query is async
 }
-
-// function login(emailTemp, password) {
-//   const user = userExists(emailTemp);
-//   if(!user[0]) throw Error('User not found');
-//   if(user[0].password !== password) throw Error('Password is incorrect.');
-
-//   return user[0];
-// }
 
 async function getUser(user) {
   let sql
@@ -50,9 +44,9 @@ async function login(emailTemp, passwordTemp) {
 async function register(user) {
   const u = userExists(user.email)
   if(u.length > 0) throw Error('Email already in use')
-
-  const sql = `INSERT INTO users (email, password)
-  VALUES ("${user.email}", "${user.password}")
+  
+  const sql = `INSERT INTO users (email, password, fName, lName, bDay)
+  VALUES ("${user.email}", "${user.password}", "${user.fName}", "${user.lName}", "${user.bDay}")
   `
 
   const insert = await con.query(sql)
@@ -67,19 +61,26 @@ async function deleteUser(userId) {
   const insert = await con.query(sql)
 }
 
-// async function editUser(user) {
-//   const u = userIdExists(user.userId)
-//   if(!u[0]) throw Error('User not found');
-//   u[0].email = user.email
-//   return u[0]
-// }
-
 async function editUser(user) {
   const sql = `UPDATE users SET
   email = "${user.email}"
   WHERE userId = ${user.userId}
   `
-  return await con.query(sql)
+
+  await con.query(sql)
+  const newUser = await getUser(user)
+  return newUser[0]
+}
+
+async function editUserPass(user) {
+  const sql = `UPDATE users SET
+  password = "${user.password}"
+  WHERE userId = ${user.userId}
+  `
+
+  await con.query(sql)
+  const newUser = await getUser(user)
+  return newUser[0]
 }
 
 async function userExists(emailTemp) {
@@ -89,9 +90,4 @@ async function userExists(emailTemp) {
   return await con.query(sql)
 }
 
-//Since we were changing the email I believed that we shouldn't be checking for the new email value being passed
-function userIdExists(userIdTemp) {
-  return users.filter((u) => u.userId === userIdTemp)
-}
-
-module.exports = { getUsers, login, register, deleteUser, editUser };
+module.exports = { getUsers, login, register, deleteUser, editUser, editUserPass };
