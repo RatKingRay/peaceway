@@ -6,7 +6,6 @@ async function createTable() {
     weeklyLimit SMALLINT NOT NULL,
     weeklyCurrent SMALLINT NOT NULL,
     lastWeekCarryover SMALLINT,
-    CONSTRAINT userPk PRIMARY KEY(userId),
     CONSTRAINT userFk FOREIGN KEY(userId) REFERENCES users(userId)
   )`
   await con.query(sql)
