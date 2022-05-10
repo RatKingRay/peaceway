@@ -51,7 +51,9 @@ a:hover {
 
 /* Body */
 body {
-    background-color: rgba(177, 226, 255, 0.616);
+    background-image: url("/images/mountain1.jpg");
+    background-size: cover;
+    /* background-color: rgba(177, 226, 255, 0.616); */
 }
 
 /* Notes */

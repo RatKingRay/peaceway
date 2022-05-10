@@ -30,35 +30,40 @@ async function createEntries(userId) {
     WHERE NOT EXISTS 
       (SELECT exerciseMood 
        FROM exercises 
-       WHERE exerciseMood = 'sad')
+       WHERE exerciseMood = 'sad'
+       AND userId = ${userId})
   `
   const sqlHap = `INSERT INTO exercises (userId, instructions, exerciseMood) 
   SELECT '${userId}', 'Enter instructions!', 'happy'
   WHERE NOT EXISTS 
     (SELECT exerciseMood 
      FROM exercises 
-     WHERE exerciseMood = 'happy')
+     WHERE exerciseMood = 'happy'
+     AND userId = ${userId})
   `
   const sqlAng = `INSERT INTO exercises (userId, instructions, exerciseMood) 
   SELECT '${userId}', 'Enter instructions!', 'angry'
   WHERE NOT EXISTS 
     (SELECT exerciseMood 
      FROM exercises 
-     WHERE exerciseMood = 'angry')
+     WHERE exerciseMood = 'angry'
+     AND userId = ${userId})
   `
   const sqlBor = `INSERT INTO exercises (userId, instructions, exerciseMood) 
   SELECT '${userId}', 'Enter instructions!', 'bored'
   WHERE NOT EXISTS 
     (SELECT exerciseMood 
      FROM exercises 
-     WHERE exerciseMood = 'bored')
+     WHERE exerciseMood = 'bored'
+     AND userId = ${userId})
   `
   const sqlAnx = `INSERT INTO exercises (userId, instructions, exerciseMood) 
   SELECT '${userId}', 'Enter instructions!', 'anxious'
   WHERE NOT EXISTS 
     (SELECT exerciseMood 
      FROM exercises 
-     WHERE exerciseMood = 'anxious')
+     WHERE exerciseMood = 'anxious'
+     AND userId = ${userId})
   `
 
   await con.query(sqlSad)

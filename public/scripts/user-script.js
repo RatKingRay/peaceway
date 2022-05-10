@@ -5,6 +5,9 @@ from './main.js'
 const loginForm = document.getElementById("loginForm");
 if(loginForm) loginForm.addEventListener('submit', login);
 
+const regForm = document.getElementById("registerForm");
+if(regForm) regForm.addEventListener('submit', register);
+
 function login(e) {
   e.preventDefault();
 
@@ -24,9 +27,6 @@ function login(e) {
     console.log(`Error! ${errText}`)
   })
 }
-
-const regForm = document.getElementById("registerForm");
-if(regForm) regForm.addEventListener('submit', register);
 
 function register(e) {
   e.preventDefault();

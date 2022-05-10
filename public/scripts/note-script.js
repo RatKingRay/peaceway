@@ -8,6 +8,9 @@ from './main.js'
 and when the note page loads it will read the date in and subtract 7 days
 and if the answer is 0 >= x then we wipe the note*/
 
+let user = getCurrentUser()
+if(!user) window.location.href = "login.html"
+
 display()
 
 document.getElementById("noteForm").addEventListener('submit', addNote)

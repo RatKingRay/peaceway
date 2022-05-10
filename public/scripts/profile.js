@@ -4,7 +4,6 @@ from './main.js'
 
 
 let user = getCurrentUser()
-
 if(!user) window.location.href = "login.html"
 
 let profile = document.getElementById("profile") 

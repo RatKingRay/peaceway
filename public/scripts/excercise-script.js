@@ -3,6 +3,9 @@ import
 { fetchData, getCurrentUser } 
 from './main.js'
 
+let user = getCurrentUser()
+if(!user) window.location.href = "login.html"
+
 initialCreate()
 
 
@@ -86,5 +89,5 @@ function clear() {
     console.log(`Error! ${errText}`)
   })
 
-  // window.location.href = "exercise.html"
+  window.location.href = "exercise.html"
 }
