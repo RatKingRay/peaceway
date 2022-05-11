@@ -78,7 +78,7 @@ npm run dev
 
 ## ERD Screenshot
 ---
-![Project ER Diagram](/images/erdiagram.jpg)
+![Project ER Diagram](https://ibb.co/k8NdzQm)
 * **Exercise:** 5 empty exercises are created by default for each user and are identified with the use of a foreign key. Each table has a unique emotion stored in the *exercise_mood* field consisting of: *sad*, *anxious*, *bored*, *happy*, and *angry*. 0-5 of the available tables may be updated by the user with information stored in the *instructions* field.
 
 * **Note:** Notes are associated with the user who created them through use of a foreign key. Content for note submission is stored in the *content* field, and a date of creation along with the *is_vent* field will be used in future versions to automatically delete the indicated note entry after a span of several hours.
@@ -90,22 +90,22 @@ npm run dev
 ## Demo Screenshots
 ---
 ### Registration Page
-![Registration page](/images/registration.jpg)
+![Registration page](https://ibb.co/H7T35ZG)
 
 ### Login Form
-![Login Form](/images/login.jpg)
+![Login Form](https://ibb.co/wSBFQ4D)
 
 ### Profile Forms
-![Profile Forms](/images/profile.jpg)
+![Profile Forms](https://ibb.co/179pkp0)
 
 ### Note Page
-![Note Page](/images/notes.jpg)
+![Note Page](https://ibb.co/bRkkhs7)
 
 ### Exercise Page
-![Exercise Page](/images/exercise.jpg)
+![Exercise Page](https://ibb.co/ryVN3vC)
 
 ### Budget Page
-![Budget Page](/images/budget.jpg)
+![Budget Page](https://ibb.co/dWgGRpJ)
 
 ## Known Issues
 ---
