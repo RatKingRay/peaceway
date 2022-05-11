@@ -93,7 +93,7 @@ npm run dev
 ![Registration page](https://ibb.co/H7T35ZG)
 
 ### Login Form
-![Login Form](https://ibb.co/wSBFQ4D)
+![Login Form](https://rosered.imgbb.com/?list=images&sort=views_desc&page=1)
 
 ### Profile Forms
 ![Profile Forms](https://ibb.co/179pkp0)
