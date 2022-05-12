@@ -11,7 +11,7 @@ The exercise page features a drop-down menu of emotions that will load the user'
 This page allows each user to input however many notes they'd like, view previously created notes, and delete any note. There is also an option to select if a note in creation is more of a "venting" note that the user might not want to stay around permanently.
 
 ### Budget
-This page allows each user to enter the amount of money they'd like to limit themselves to spending each week. This weekly allowance is then displayed and another form allows for the inputting of how much money a user has spend so far which will update the currently displayed budget value. Another button resets the current budget value as if a new week has started.
+This page allows each user to enter the amount of money they'd like to limit themselves to spending each week. This weekly allowance is then displayed and another form allows for the inputting of how much money a user has spend so far which will update the currently displayed budget value. Inserting a negative value into this form will also allow the user to add money to the current weekly budget. Another button resets the current budget value as if a new week has started.
 
 ### User Pages
 

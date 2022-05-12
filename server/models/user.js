@@ -16,7 +16,7 @@ createTable()
 
 let getUsers = async () => {
   const sql = "SELECT * FROM users"
-  return await con.query(sql)   //Have to use await and async because query is async
+  return await con.query(sql)
 }
 
 async function getUser(user) {

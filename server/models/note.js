@@ -13,14 +13,12 @@ async function createTable() {
 }
 createTable()
 
-//Have to make it so we check for userId
 let getNotes = async () => {
   const sql = "SELECT * FROM notes"
-  return await con.query(sql)   //Have to use await and async because query is async?
+  return await con.query(sql)
 }
 
 async function displayNotes(userId) {
-  console.log(`In display notes ${userId}`)
   const sql = `SELECT * FROM notes
   WHERE userId = ${userId}
   `
@@ -28,7 +26,6 @@ async function displayNotes(userId) {
 }
 
 async function create(note) {
-  console.log(`In create model function ${note.userId}, ${note.content}, ${note.is_vent}`)
   const sql = `INSERT INTO notes (userId, content, is_vent)
   VALUES ( ${note.userId}, '${note.content}', '${note.is_vent}' )
   `

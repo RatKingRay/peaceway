@@ -38,11 +38,9 @@ function setLimit(e) {
 
 function add(e) {
   e.preventDefault()
-  console.log("hello in add function")
 
   const user = getCurrentUser()
   const addTemp = document.getElementById("deduct").value
-  console.log(addTemp)
 
   fetchData('/budget/add', {weeklyCurrent: addTemp, userId: user.userId}, "POST")
   .then((data) => {
@@ -60,7 +58,6 @@ function add(e) {
 
 function reset(e) {
   e.preventDefault()
-  console.log("hello in reset function")
 
   const user = getCurrentUser()
 
@@ -80,7 +77,6 @@ function reset(e) {
 
 function initialCreate() {
   const user = getCurrentUser()
-  // console.log(`In InitialCreate() ${user} or ${user.userId}`)
 
   fetchData('/budget/createEntry', {userId: user.userId}, "POST")
   .then((data) => {

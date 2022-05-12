@@ -43,12 +43,10 @@ function editProfile() {
   `
   submitEmail.addEventListener('click', editAccount)
   submitPass.addEventListener('click', editAccountPass)
-  // <input type="submit" class="button" value="Submit">
 }
 
 function editAccount(e) {
   e.preventDefault();
-  console.log("Hello")
 
   let emailTemp = document.getElementById("emailInput").value
 

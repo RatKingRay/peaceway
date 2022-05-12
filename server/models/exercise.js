@@ -104,10 +104,4 @@ async function clear(instructionMood, userId) {
   return insert
 }
 
-
-// let getExercises = async () => {
-//   const sql = "SELECT * FROM notes"
-//   return await con.query(sql)   //Have to use await and async because query is async
-// }
-
 module.exports = { getExercise, setInstructions, createEntries, display, clear }

@@ -38,11 +38,7 @@ async function add(newWeeklyCurrent, userId) {
   WHERE userId = ${userId}
   `
   const previousValue = await con.query(sql)
-  // console.log(typeof previousValue[0].weeklyCurrent)
-  // console.log(typeof parseInt(newWeeklyCurrent))
   let newValue = (previousValue[0].weeklyCurrent + parseInt(newWeeklyCurrent))
-  //is increasing though!
-  console.log(`Over here! ${newValue}`)
 
   const sql2 = `UPDATE budget SET
   weeklyCurrent = ${newValue}
@@ -71,30 +67,6 @@ async function display(userId) {
   
   return temp
 }
-
-//For initial creation, likely don't want/need
-// async function create(budget) {
-//   const sql = `INSERT INTO budget (weeklyLimit)
-//   VALUES ("${budget.weeklyLimit}")
-//   `
-
-//   const insert = await con.query(sql)
-//   return insert
-// }
-
-// async function getUserTable(userId) {
-//   const sql = `SELECT userId FROM users
-//   WHERE email = "${userId}"
-//   `
-//   const userIdResult = await con.query(sql)
-
-//   const sql2 = `SELECT * FROM budget
-//   WHERE userId = "${userIdResult}
-//   `
-
-//   const budgetTable = await con.query(sql2)
-//   return budgetTable
-// }
 
 async function reset(userId) {
   const sql = `UPDATE budget SET
