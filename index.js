@@ -1,3 +1,4 @@
+require('date-and-time')
 require('dotenv').config()
 const express = require('express');
 const app = express();
@@ -11,7 +12,7 @@ const budgetRoutes = require('./server/routes/budget');
 app.use(express.json()); //To parse JSON bodies (Applicable for Express 4.16+)
 
 app.use(express.static(__dirname + "/public"));
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/public/bmi.html')))
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/public/notes.html')))
 
 //CORS middleware
 app.use(function(req, res, next) {
