@@ -55,10 +55,22 @@ async function register(user) {
 }
 
 async function deleteUser(userId) {
-  const sql = `DELETE FROM users
+  const sql1 = `DELETE FROM budget
   WHERE userId = ${userId}
   `
-  const insert = await con.query(sql)
+  const sql2 = `DELETE FROM exercises
+  WHERE userId = ${userId}
+  `
+  const sql3 = `DELETE FROM notes
+  WHERE userId = ${userId}
+  `
+  const sql4 = `DELETE FROM users
+  WHERE userId = ${userId}
+  `
+  await con.query(sql1)
+  await con.query(sql2)
+  await con.query(sql3)
+  await con.query(sql4)
 }
 
 async function editUser(user) {
