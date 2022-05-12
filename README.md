@@ -119,5 +119,3 @@ npm run dev
 ---
 * Currently doesn't seem to work on FireFox for unknown reasons
 * The styling for the notes page is not designed to handle large inputs, and should at some point be updated with responsiveness to large amount of characters
-* If the user runs the *Clear* function in the *Exercise* page while a blank emotion is selected we get an error
-* Date time will only update the first time a user starts a New Week on the *Budget* page.
