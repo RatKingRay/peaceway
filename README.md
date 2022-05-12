@@ -8,7 +8,11 @@ When you're in a certain mood it's difficult to remember what helps you get into
 The exercise page features a drop-down menu of emotions that will load the user's set of notes or instructions they like to be reminded of when they're feeling a certain mood. Next to the display box is a form that allows the input of additional notes/instructions to the currently selected emotion menu.
 
 ### Notes
-This page allows each user to input however many notes they'd like, view previously created notes, and delete any note. There is also an option to select if a note in creation is more of a "venting" note that the user might not want to stay around permanently.
+This page allows each user to input however many notes they'd like, view previously created notes, and delete any note. There is also an option to check if a note in creation is a "venting" note that will automatically delete after a set amount of time, currently 2 hours. To change this naviagte to the *note.js* file in the *models* folder
+under *server*, and change the numeric value in the following code
+```js
+if(dateSubtraction >= 1)
+```
 
 ### Budget
 This page allows each user to enter the amount of money they'd like to limit themselves to spending each week. This weekly allowance is then displayed and another form allows for the inputting of how much money a user has spend so far which will update the currently displayed budget value. Inserting a negative value into this form will also allow the user to add money to the current weekly budget. Another button resets the current budget value as if a new week has started.
@@ -21,7 +25,6 @@ Pages like login and register allow users to sign up for the application with th
 ---
 Future additions will include the following:
 * Being able to add custom emotions for the exercise tables
-* Adding the functionality for notes to automatically wipe after several hours if the option "Is this a vent?" is ticked.
 * After 7 days from the budget's creation it will automatically refresh with the current weekly budget allowance and subtract the previous week's carryover if the value was in the negative range
 
 ## Installation
@@ -41,6 +44,9 @@ npm install express
 ```
 ```bash
 npm install mysql2
+```
+```bash
+npm install date-and-time
 ```
 ```bash
 npm install nodemon --save-dev
@@ -67,9 +73,11 @@ npm run dev
 ### Back-end
 * Dotenv
 * Express
+* date-and-time
 * Nodemon
 * MySQL
 * Node.js
+
 
 ### Misc
 * Visio (for ER diagram creation)
