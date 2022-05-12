@@ -112,3 +112,4 @@ npm run dev
 * Primary keys are not included in every table as they led to some error in table creation, but are not necessary.
 * Currently doesn't seem to work on FireFox for unknown reasons
 * The styling for the notes page is not designed to handle large inputs, and should at some point be updated with responsiveness to large amount of characters
+* If the user runs the *Clear* function in the *Exercise* page while a blank emotion is selected we get an error
