@@ -11,7 +11,7 @@ The exercise page features a drop-down menu of emotions that will load the user'
 This page allows each user to input however many notes they'd like, view previously created notes, and delete any note. There is also an option to check if a note in creation is a "venting" note that will automatically delete after a set amount of time, currently 2 hours. To change this time naviagte to the *note.js* file in the *models* folder
 under *server*, and change the numeric value in the following code
 ```js
-if(dateSubtraction >= 1)
+if(dateSubtraction >= 120)
 ```
 
 ### Budget
