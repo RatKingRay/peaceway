@@ -2,10 +2,12 @@ const con = require("./db_connect")
 
 async function createTable() {
   const sql = `CREATE TABLE IF NOT EXISTS exercises (
+    exerciseId INT NOT NULL AUTO_INCREMENT,
     userId INT NOT NULL,
     instructions VARCHAR(999),
     exerciseMood VARCHAR(50),
-    CONSTRAINT excercieUserFk FOREIGN KEY(userId) REFERENCES users(userId)
+    CONSTRAINT excercieUserFk FOREIGN KEY(userId) REFERENCES users(userId),
+    CONSTRAINT excercisePk PRIMARY KEY(exerciseId)
   )`
   await con.query(sql)
 }
@@ -95,8 +97,7 @@ async function display(mood, userId) {
 
 
 async function clear(instructionMood, userId) {
-  const sql = `UPDATE exercises SET
-  exerciseMood = Null
+  const sql = `DELETE FROM exercises
   WHERE userId = ${userId}
   AND exerciseMood = '${instructionMood}'
   `
