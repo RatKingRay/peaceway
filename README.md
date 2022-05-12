@@ -19,7 +19,7 @@ This page allows each user to enter the amount of money they'd like to limit the
 
 ### User Pages
 
-Pages like login and register allow users to sign up for the application with their own account. A profile page additionally allows users to edit their email and password.
+Pages like login and register allow users to sign up for the application with their own account. A profile page additionally allows users to edit their email and password or delete their account and associated tables
 
 ## Roadmap
 ---
