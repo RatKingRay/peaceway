@@ -44,7 +44,6 @@ async function displayNotes(userId) {
 }
 
 async function create(note) {
-  // const sql = `DROP TABLE notes`
   let now = new Date();
   now = date.format(now, 'YYYY-MM-DD HH:mm:ss');
 

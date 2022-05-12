@@ -8,7 +8,7 @@ When you're in a certain mood it's difficult to remember what helps you get into
 The exercise page features a drop-down menu of emotions that will load the user's set of notes or instructions they like to be reminded of when they're feeling a certain mood. Next to the display box is a form that allows the input of additional notes/instructions to the currently selected emotion menu.
 
 ### Notes
-This page allows each user to input however many notes they'd like, view previously created notes, and delete any note. There is also an option to check if a note in creation is a "venting" note that will automatically delete after a set amount of time, currently 2 hours. To change this naviagte to the *note.js* file in the *models* folder
+This page allows each user to input however many notes they'd like, view previously created notes, and delete any note. There is also an option to check if a note in creation is a "venting" note that will automatically delete after a set amount of time, currently 2 hours. To change this time naviagte to the *note.js* file in the *models* folder
 under *server*, and change the numeric value in the following code
 ```js
 if(dateSubtraction >= 1)
@@ -89,7 +89,7 @@ npm run dev
 ![Project ER Diagram](https://i.ibb.co/9TQMBsZ/erdiagram.jpg)
 * **Exercise:** 5 empty exercises are created by default for each user and are identified with the use of a foreign key. Each table has a unique emotion stored in the *exercise_mood* field consisting of: *sad*, *anxious*, *bored*, *happy*, and *angry*. 0-5 of the available tables may be updated by the user with information stored in the *instructions* field.
 
-* **Note:** Notes are associated with the user who created them through use of a foreign key. Content for note submission is stored in the *content* field, and a date of creation along with the *is_vent* field will be used in future versions to automatically delete the indicated note entry after a span of several hours.
+* **Note:** Notes are associated with the user who created them through use of a foreign key. Content for note submission is stored in the *content* field, and a date of creation along with the *is_vent* field is used to automatically delete the indicated note entry after two hours.
 
 * **Budget:** Each user is associated with an empty budget table through the user of a foreign key. The table can be updated with the weekly allowance stored in the *weeklyLimit* field, and the current amount for each week is stored in the *WeeklyCurrent* field. By default this field is equal to the value of the *weeklyLimit* allowance, and then any deductions are subtracted and the value is then stored. The *lastWeekCarryover* will be used in future versions so that at the start of a new week if the user went over budget and the *weeklyCurrent* went into negative values the new week will be started with weekly allowance minus last week's debt.
 
@@ -117,7 +117,8 @@ npm run dev
 
 ## Known Issues
 ---
-* Primary keys are not included in every table as they led to some error in table creation, but are not necessary.
+* Primary keys are not included in every table yet
 * Currently doesn't seem to work on FireFox for unknown reasons
 * The styling for the notes page is not designed to handle large inputs, and should at some point be updated with responsiveness to large amount of characters
 * If the user runs the *Clear* function in the *Exercise* page while a blank emotion is selected we get an error
+* Date time will only update the first time a user starts a New Week on the *Budget* page.

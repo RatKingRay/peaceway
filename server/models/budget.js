@@ -1,21 +1,28 @@
 const con = require("./db_connect")
+const date = require('date-and-time')
 
 async function createTable() {
   const sql = `CREATE TABLE IF NOT EXISTS budget (
+    budgetId INT NOT NULL AUTO_INCREMENT,
     userId INT NOT NULL,
-    weeklyLimit SMALLINT NOT NULL,
-    weeklyCurrent SMALLINT NOT NULL,
-    lastWeekCarryover SMALLINT,
-    CONSTRAINT userFk FOREIGN KEY(userId) REFERENCES users(userId)
+    weeklyLimit SMALLINT DEFAULT 0 NOT NULL,
+    weeklyCurrent SMALLINT DEFAULT 0 NOT NULL,
+    lastWeekCarryover SMALLINT DEFAULT 0,
+    budgetDate DATETIME DEFAULT '1900-01-01',
+    CONSTRAINT userFk FOREIGN KEY(userId) REFERENCES users(userId),
+    CONSTRAINT budgetPk PRIMARY KEY(budgetId)
   )`
   await con.query(sql)
 }
 createTable()
 
 async function createEntry(userId) {
-  //IGNORE because we need to intially create a unique budget for each user, but one might already exist
-  const sql = `INSERT IGNORE INTO budget (userId, weeklyLimit, weeklyCurrent)
-  VALUES ( '${userId}', '0', '0')
+  const sql = `INSERT INTO budget (userId) 
+    SELECT ${userId}
+    WHERE NOT EXISTS 
+      (SELECT userId
+       FROM budget 
+       WHERE userId = ${userId})
   `
 
   await con.query(sql)
@@ -25,8 +32,12 @@ let getBudget = () => budget;
 
 
 async function update(weeklyLimit, userId) {
+  let now = new Date();
+  now = date.format(now, 'YYYY-MM-DD HH:mm:ss')
+
   const sql = `UPDATE budget SET
-  weeklyLimit = ${weeklyLimit}
+  weeklyLimit = ${weeklyLimit},
+  budgetDate = '${now}'
   WHERE userId = ${userId}
   `
 
@@ -45,10 +56,29 @@ async function add(newWeeklyCurrent, userId) {
   WHERE userId = ${userId}
   `
   const insert = await con.query(sql2)
-  //Return?
 }
 
 async function display(userId) {
+  //Comparing budget datetime to current datetime
+  const now = new Date()
+  console.log(`Current time is: ${date.format(now, 'YYYY-MM-DD HH:mm:ss')}`)
+
+  const sql3 = `SELECT * FROM budget
+  WHERE userId = ${userId}
+  `
+
+  let budget = await con.query(sql3)
+  let budgetDate = new Date(budget[0].budgetDate)
+  console.log(`Budget ${budget[0].budgetId} was created at ${date.format(budgetDate, 'YYYY-MM-DD HH:mm:ss')}`)
+
+  let dateSubtraction = date.subtract(now, budgetDate).toMinutes();
+  console.log(dateSubtraction)
+  if(dateSubtraction >= 10) {
+    clear(userId)
+    console.log("successfully cleared")
+  }
+
+  //Subtracting weeklyLimit by weeklyCurrent 
   const sql = `SELECT weeklyLimit FROM budget
   WHERE userId = ${userId}
   `
@@ -64,22 +94,16 @@ async function display(userId) {
 
   const temp = tempLimit.weeklyLimit - tempWeek.weeklyCurrent
 
-  
   return temp
 }
 
-async function reset(userId) {
-  const sql = `UPDATE budget SET
-  weeklyCurrent = '0'
-  WHERE userId = ${userId}
-  `
-
-  return await con.query(sql)
-}
-
 async function clear(userId) {
+  let now = new Date();
+  now = date.format(now, 'YYYY-MM-DD HH:mm:ss')
+
   const sql = `UPDATE budget SET
-  weeklyCurrent = '0'
+  weeklyCurrent = '0',
+  budgetDate = '${now}'
   WHERE userId = ${userId}
   `
   const insert = await con.query(sql)
