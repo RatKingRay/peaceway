@@ -72,7 +72,7 @@ async function display(userId) {
   console.log(`Budget ${budget[0].budgetId} was created at ${date.format(budgetDate, 'YYYY-MM-DD HH:mm:ss')}`)
 
   let dateSubtraction = date.subtract(now, budgetDate).toMinutes();
-  console.log(dateSubtraction)
+  console.log(`Time existed: ${dateSubtraction}`)
   if(dateSubtraction >= 10) {
     clear(userId)
     console.log("successfully cleared")

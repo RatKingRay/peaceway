@@ -66,7 +66,7 @@ function setInstructions() {
     console.log(`Error! ${errText}`)
   })
 
-  window.location.href = "exercise.html"
+  window.location.href = "exercises.html"
 }
 
 function clear() {
@@ -85,5 +85,5 @@ function clear() {
     console.log(`Error! ${errText}`)
   })
 
-  window.location.href = "exercise.html"
+  window.location.href = "exercises.html"
 }
