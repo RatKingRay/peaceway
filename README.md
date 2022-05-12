@@ -86,7 +86,7 @@ npm run dev
 
 ## ERD Screenshot
 ---
-![Project ER Diagram](https://i.ibb.co/9TQMBsZ/erdiagram.jpg)
+![Project ER Diagram](https://i.ibb.co/3r6Jv31/databaseschgema.jpg)
 * **Exercise:** 5 empty exercises are created by default for each user and are identified with the use of a foreign key. Each table has a unique emotion stored in the *exercise_mood* field consisting of: *sad*, *anxious*, *bored*, *happy*, and *angry*. 0-5 of the available tables may be updated by the user with information stored in the *instructions* field.
 
 * **Note:** Notes are associated with the user who created them through use of a foreign key. Content for note submission is stored in the *content* field, and a date of creation along with the *is_vent* field is used to automatically delete the indicated note entry after two hours.
