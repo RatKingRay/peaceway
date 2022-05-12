@@ -15,7 +15,7 @@ if(dateSubtraction >= 1)
 ```
 
 ### Budget
-This page allows each user to enter the amount of money they'd like to limit themselves to spending each week. This weekly allowance is then displayed and another form allows for the inputting of how much money a user has spend so far which will update the currently displayed budget value. Inserting a negative value into this form will also allow the user to add money to the current weekly budget. Another button resets the current budget value as if a new week has started.
+This page allows each user to enter the amount of money they'd like to limit themselves to spending each week. This weekly allowance is then displayed and another form allows for the inputting of how much money a user has spend so far which will update the currently displayed budget value. Inserting a negative value into this form will also allow the user to add money to the current weekly budget. Another button resets the current budget value as if a new week has started. After 7 days from the budget's last update or clear it will automatically refresh with the current weekly budget allowance.
 
 ### User Pages
 
@@ -25,7 +25,7 @@ Pages like login and register allow users to sign up for the application with th
 ---
 Future additions will include the following:
 * Being able to add custom emotions for the exercise tables
-* After 7 days from the budget's creation it will automatically refresh with the current weekly budget allowance and subtract the previous week's carryover if the value was in the negative range
+* Add the subtraction of the previous week's carryover if the value was in the negative range for the budget
 
 ## Installation
 ---
