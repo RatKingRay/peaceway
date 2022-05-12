@@ -33,7 +33,7 @@ async function displayNotes(userId) {
       console.log(`Note ${note.noteId} was created at ${date.format(noteDate, 'YYYY-MM-DD HH:mm:ss')}`)
   
       let dateSubtraction = date.subtract(now, noteDate).toMinutes();
-      if(dateSubtraction >= 1) {
+      if(dateSubtraction >= 120) {
         deleteNote(note.noteId)
         console.log("successfully deleted")
       }
